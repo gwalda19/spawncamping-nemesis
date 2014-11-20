@@ -1,0 +1,4 @@
+spawncamping-nemesis
+====================
+
+Software Engineering
