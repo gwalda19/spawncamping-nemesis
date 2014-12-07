@@ -36,6 +36,7 @@ public class HomeRunStatsGui extends JFrame implements HomeRunObserver{
 	/**
 	 * 
 	 */
+	//this is a test
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
 	private JTextArea jtaStats;
