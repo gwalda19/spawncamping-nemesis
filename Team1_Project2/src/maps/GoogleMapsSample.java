@@ -185,7 +185,7 @@ public class GoogleMapsSample extends JFrame {
 
 	private static void loadMapUrl(final Browser browser) {
 		
-		browser.loadURL("file:///"+System.getProperty("user.dir")+"\\start.html");
+		browser.loadURL("file:///"+System.getProperty("user.dir")+"\\main.html");
 	}
 
 	
