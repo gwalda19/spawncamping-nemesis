@@ -64,13 +64,18 @@ function showMarker() {
 		$.growl.warning({ message: "No Data Loaded!" });
 		return;
 	}
+	if(markers.length==0) {
+		for (var i = 0; i < locations.length; i++) {
+		    setTimeout(function() {
+		      addMarker();
+		    }, i * 200);
+		}
+	} else {
+		setAllMap(map);	
+	}
+
 	
-  for (var i = 0; i < locations.length; i++) {
-    setTimeout(function() {
-      addMarker();
-    }, i * 200);
-  }
-  setAllMap(map);
+
 }
 
 
@@ -89,7 +94,7 @@ function addMarker() {
 
 
 	currentData = JSON.stringify(data[iterator]);
-	console.log("mvn TEST currentData: "+currentData);
+	//console.log("DEBUG TEST currentData: "+currentData+" iter:"+iterator);
 	
 	json = JSON.parse(currentData);//json obj with data
 
@@ -154,7 +159,6 @@ function closeAllInfoWindows() {
 	     infoWindows[i].close();
 	  }
 }
-	
 
 function getIconPath(index, reason) {
 	var path;
@@ -184,8 +188,9 @@ function showLine() {
 
 //Removes the markers from the map, but keeps them in the array.
 function clearMarkers() {
+	//closeAllInfoWindows();	//close infowindows when hiding markers
 	setAllMap(null);
-	closeAllInfoWindows();
+
 }
 
 //Sets the map on all markers in the array.
@@ -208,43 +213,27 @@ function updateLine() {
 
 function loadData() {
 	
-	data=[
-			{"baDataID":1,"sourceID":1234,"timestamp":{"year":2014,"month":2,"dayOfMonth":31,"hourOfDay":0,"minute":1,"second":15},"lat":39.944854,"lon":-74.963863,"recordingReason":"MISSION_STARTED","destinationID":0,"audioPath":"/some/path/audio.mp3","videoPath":"/some/path/video.mp4","i":10},
-			{"baDataID":2,"sourceID":4321,"timestamp":{"year":2014,"month":3,"dayOfMonth":1,"hourOfDay":1,"minute":1,"second":15},"lat":39.949267,"lon":-74.960107,"recordingReason":"INCOMING","destinationID":0,"audioPath":"/some/path/audio.mp3","videoPath":"/some/path/video.mp4","i":10},
-			{"baDataID":3,"sourceID":1234,"timestamp":{"year":2014,"month":3,"dayOfMonth":2,"hourOfDay":2,"minute":1,"second":15},"lat":39.906024,"lon":-74.935149,"recordingReason":"OUTGOING","destinationID":0,"audioPath":"/some/path/audio.mp3","videoPath":"/some/path/video.mp4","i":10},
-			{"baDataID":4,"sourceID":1234,"timestamp":{"year":2014,"month":3,"dayOfMonth":3,"hourOfDay":3,"minute":1,"second":15},"lat":39.942317,"lon":-75.02524,"recordingReason":"OUTGOING","destinationID":0,"audioPath":"/some/path/audio.mp3","videoPath":"/some/path/video.mp4","i":10},
-			{"baDataID":5,"sourceID":1234,"timestamp":{"year":2014,"month":3,"dayOfMonth":4,"hourOfDay":4,"minute":1,"second":15},"lat":40.221335,"lon":-74.732718,"recordingReason":"GPS","destinationID":0,"audioPath":"/some/path/audio.mp3","videoPath":"/some/path/video.mp4","i":10},
-			{"baDataID":6,"sourceID":1234,"timestamp":{"year":2014,"month":3,"dayOfMonth":5,"hourOfDay":5,"minute":1,"second":15},"lat":39.281713,"lon":-76.615607,"recordingReason":"GPS","destinationID":0,"audioPath":"/some/path/audio.mp3","videoPath":"/some/path/video.mp4","i":10},
-			{"baDataID":7,"sourceID":1234,"timestamp":{"year":2014,"month":3,"dayOfMonth":6,"hourOfDay":6,"minute":1,"second":15},"lat":39.730968,"lon":-75.516974,"recordingReason":"GPS","destinationID":0,"audioPath":"/some/path/audio.mp3","videoPath":"/some/path/video.mp4","i":10},
-			{"baDataID":8,"sourceID":1234,"timestamp":{"year":2014,"month":3,"dayOfMonth":7,"hourOfDay":7,"minute":1,"second":15},"lat":39.957663,"lon":-75.157858,"recordingReason":"GPS","destinationID":0,"audioPath":"/some/path/audio.mp3","videoPath":"/some/path/video.mp4","i":10},
-			{"baDataID":9,"sourceID":1234,"timestamp":{"year":2014,"month":3,"dayOfMonth":8,"hourOfDay":8,"minute":1,"second":15},"lat":39.364008,"lon":-74.421419,"recordingReason":"GPS","destinationID":0,"audioPath":"/some/path/audio.mp3","videoPath":"/some/path/video.mp4","i":10},
-			{"baDataID":10,"sourceID":1234,"timestamp":{"year":2014,"month":3,"dayOfMonth":9,"hourOfDay":9,"minute":1,"second":15},"lat":40.051718,"lon":-74.890194,"recordingReason":"MISSION_ENDED","destinationID":0,"audioPath":"/some/path/audio.mp3","videoPath":"/some/path/video.mp4","i":10}	
-			];
-	
-	var currentData;
-	var json;
+	  var jsonString = loadJavaData();
+	  //alert(jsonString);
+	  
+	  data = $.parseJSON(jsonString);
+	  //alert("data length:"+data.length);
+	  	  
+	  var currentData;
+	  var json;
 
-	for (var i = 0; i < data.length; i++) {
-		currentData = JSON.stringify(data[i]);
-		console.log("mvn DEBUG currentData: "+currentData);
+		for (var i = 0; i < data.length; i++) {
+			currentData = JSON.stringify(data[i]);
+			//console.log("TEST DEBUG currentData: "+currentData);
+			
+			json = JSON.parse(currentData);//json obj with data
+			//console.log("json: "+json);
+			
+			locations[i] = new google.maps.LatLng(json.lat, json.lon);
+		}
 		
-		json = JSON.parse(currentData);//json obj with data
-		//console.log("json: "+json);
-		
-		locations[i] = new google.maps.LatLng(json.lat, json.lon);
-// 	 	console.log(json.baDataID);
-// 	 	console.log(json.sourceID); 
-// 	 	console.log(json.timestamp.year);
-// 	 	console.log(json.lat);
-// 	 	console.log(json.lon);
-// 	 	console.log(json.recordingReason);
-// 	 	console.log(json.destinationID); 
-// 	 	console.log(json.audioPath);
-// 	 	console.log(json.videoPath);
-	}
-
-	updateLine();
-	$.growl.notice({ message: "Data Loaded Successfully!" });
+		updateLine();
+		$.growl.notice({ message: "Data Loaded Successfully!" });
 }
 
 
@@ -259,7 +248,6 @@ function loadData() {
        <button id="hideMarker" onclick="clearMarkers()">Hide Markers</button>
        <button id="showLine" onclick="showLine()">Show Lines</button>
 		<button id="hideLine" onclick="hideLine()">Hide Lines</button>
-		<button id="load" onclick="loadData()">Load Data</button>
 	</div>
     <div id="map-canvas"></div>
   </body>

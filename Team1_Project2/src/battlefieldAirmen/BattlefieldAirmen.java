@@ -72,8 +72,6 @@ public class BattlefieldAirmen {
 		
 		// Set Recording Reason
 		this.recordingReason = RecordingState.valueOf(baData[i]);
-		System.out.println(recordingReason);
-		//this.recordingReason = RecordingState.MISSION_STARTED;
 		i++;
 		
 		this.sourceID = Integer.parseInt(baData[i]);

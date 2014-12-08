@@ -3,6 +3,9 @@ package maps;
 import java.awt.BorderLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
 import java.util.ArrayList;
 
 import javax.swing.JButton;
@@ -10,13 +13,19 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.WindowConstants;
 
+import org.json.simple.JSONArray;
+import org.json.simple.JSONObject;
+import org.json.simple.parser.JSONParser;
+import org.json.simple.parser.ParseException;
+
 import battlefieldAirmen.BattlefieldAirmen;
 import battlefieldAirmen.JsonFileGenerator;
 import battlefieldAirmen.ReadBattlefieldAirmenCSV;
 
 import com.teamdev.jxbrowser.chromium.Browser;
 import com.teamdev.jxbrowser.chromium.BrowserFactory;
-import com.teamdev.jxbrowser.chromium.BrowserPreferences;
+import com.teamdev.jxbrowser.chromium.BrowserFunction;
+import com.teamdev.jxbrowser.chromium.JSValue;
 
 /**
  * This sample demonstrates how to load a web page with Google Maps
@@ -36,20 +45,18 @@ public class GoogleMapsSample extends JFrame {
     public static void main(String[] args) {
     	JsonFileGenerator.makeJsonFile();
     	array = ReadBattlefieldAirmenCSV.read();
-
-    	BrowserPreferences.setChromiumSwitches("--allow-file-access");
-    	BrowserPreferences.setChromiumSwitches("--allow-file-access-from-files");
-    	BrowserPreferences.setChromiumSwitches("--ash-enable-system-sounds");
-    	BrowserPreferences.setChromiumSwitches("--disable-web-security");
-    	
+   	
         final Browser browser = BrowserFactory.create();
+        
+        //register method for javascript to java callback
+        loadJavaDataForJS(browser);
 
         // create zoom in button
         JButton zoomInButton = makeZoomInButton(browser);
         // create zoom out button
         JButton zoomOutButton = makeZoomOutButton(browser);
-        // create start button
-        //JButton startButton = makeStartButton(browser);
+        // create load button
+       JButton loadButton = makeLoadButton(browser);
                 
         // create Show All button
         JButton showAllButton = makeShowAllButton(browser);
@@ -58,6 +65,7 @@ public class GoogleMapsSample extends JFrame {
         toolBar.add(zoomInButton);
         toolBar.add(zoomOutButton);
         toolBar.add(showAllButton);
+        toolBar.add(loadButton);
 
         JFrame frame = new JFrame();
         frame.setTitle("Google Maps");
@@ -72,6 +80,60 @@ public class GoogleMapsSample extends JFrame {
         GoogleMapsSample.loadMapUrl(browser);
 
     }
+
+	private static void loadJavaDataForJS(final Browser browser) {
+		// this javascript function is defined in main.html
+        browser.registerFunction("loadJavaData", new BrowserFunction() {
+        	StringBuilder builder = null;
+            public JSValue invoke(JSValue... args) {
+//                // FirstName is supposed to be first parameter
+//                JSValue firstNameValue = args[0];
+//                System.out.println("firstName: " + firstNameValue.getString());
+//
+//                // FirstName is supposed to be second parameter
+//                JSValue lastNameValue = args[1];
+//                System.out.println("lastName: " + lastNameValue.getString());
+                
+                try {
+                // build JSON String
+             // read the json file
+    			FileReader reader = new FileReader("json.json");
+
+    			JSONParser jsonParser = new JSONParser();
+    			JSONArray jsonArray = (JSONArray) jsonParser.parse(reader);
+
+    			builder = new StringBuilder();
+    			builder.append("[");
+    			builder.append("\n");
+    			for (int i=0; i<jsonArray.size(); i++) {
+    				JSONObject jsonObj=(JSONObject)jsonArray.get(i);
+        			builder.append(jsonObj.toJSONString());
+        			if(i != jsonArray.size()-1) {
+        				builder.append(",");
+        			}
+        			builder.append("\n");
+        		
+    				
+    			}
+    			builder.append("]");
+
+    			
+                } catch (FileNotFoundException ex) {
+        			ex.printStackTrace();
+        		} catch (IOException ex) {
+        			ex.printStackTrace();
+        		} catch (ParseException ex) {
+        			ex.printStackTrace();
+        		} catch (NullPointerException ex) {
+        			ex.printStackTrace();
+        		}
+    			
+
+                //return JSValue.createNull();
+                return JSValue.create(builder.toString());
+            }
+        });
+	}
 
 	private static JButton makeShowAllButton(final Browser browser) {
 		JButton showAllButton = new JButton("Show All");
@@ -109,19 +171,16 @@ public class GoogleMapsSample extends JFrame {
 		return zoomInButton;
 	}
 
-	private static JButton makeStartButton(final Browser browser) {
-		JButton resetButton = new JButton("Start");
-        resetButton.addActionListener(new ActionListener() {
+	private static JButton makeLoadButton(final Browser browser) {
+		JButton loadButton = new JButton("Load");
+        loadButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-            	zoomValue = 4;
-            	browser.executeJavaScript("map.setZoom(" + zoomValue + ")");
-            	double lat = 39.974738;
-        		double lon = -74.976621;
-        		String iconPath = "http://google.com/mapfiles/kml/paddle/go.png";
-            	addOverlayLatLon(browser, lat, lon, iconPath,0);
+            	JSValue returnValue = browser.executeJavaScriptAndReturnValue(
+                        "loadData();");
+                System.out.println("return value = " + returnValue);
             }
         });
-		return resetButton;
+		return loadButton;
 	}
 
 	private static void loadMapUrl(final Browser browser) {

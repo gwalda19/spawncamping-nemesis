@@ -26,12 +26,22 @@ public class JsonFileGenerator {
  
 			FileWriter fw = new FileWriter(file.getAbsoluteFile());
 			BufferedWriter bw = new BufferedWriter(fw);
+			bw.write("[");
 
-			for(BattlefieldAirmen ba: array) {
-	    		// append to JSON file
+			
+			for(int i=0; i<array.size(); i++) {
+				BattlefieldAirmen ba = array.get(i);
+				// append to JSON file
+				bw.newLine();
 	            bw.write(gson.toJson(ba));
-	            bw.newLine();
-	    	}
+	            if(i !=array.size()-1) {
+	            	bw.write(",");
+	            }
+
+			}
+            bw.newLine();
+			bw.write("]");
+			
 			bw.close();
  
 			System.out.println("Done");
