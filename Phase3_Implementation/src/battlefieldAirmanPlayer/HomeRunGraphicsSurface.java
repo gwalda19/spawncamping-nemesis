@@ -32,20 +32,20 @@ public class HomeRunGraphicsSurface extends JComponent implements StrikeZoneObse
 	private Image field = null;
 	private boolean mouseOverHomeRun = false;
 	private boolean mouseOverStrikeZone = false;
-	private ArrayList<HomeRun> myHomeRunList;
-	private ArrayList<HomeRun> myHomeRunList2;// = new ArrayList<HomeRun>();
+	private ArrayList<GPSDataPoint> myHomeRunList;
+	private ArrayList<GPSDataPoint> myHomeRunList2;// = new ArrayList<HomeRun>();
 	private ArrayList<HomeRunObserver> homeRunObservers = new ArrayList<HomeRunObserver>();
-	private HomeRun hr;
+	private GPSDataPoint hr;
 	private String HOMETEAM = "Phillies";
 	private AudioInputStream audioInputStream = null;
 	private Clip clip = null;
 //	List<Integer> l2;// = new ArrayList<Integer>(l1); //A new arrayList.
 
 	@SuppressWarnings("unchecked")
-	public HomeRunGraphicsSurface(ArrayList<HomeRun> homeRunList)
+	public HomeRunGraphicsSurface(ArrayList<GPSDataPoint> homeRunList)
 	{
 		
-		myHomeRunList = (ArrayList<HomeRun>) homeRunList.clone();
+		myHomeRunList = (ArrayList<GPSDataPoint>) homeRunList.clone();
 		myHomeRunList2 = homeRunList;
 		this.addMouseMotionListener(new MouseMotionListener()
 		{
@@ -140,7 +140,7 @@ public class HomeRunGraphicsSurface extends JComponent implements StrikeZoneObse
 		int hrHomeTeamCount = 0; 
 		int hrAwayTeamCount = 0; 
 		
-		for (HomeRun homeRun: myHomeRunList){
+		for (GPSDataPoint homeRun: myHomeRunList){
 			//Draw a red home run dot at x,y position
 			if (homeRun.getBatterTeam().equals(HOMETEAM)){
 				g2d.setColor(Color.red);
@@ -278,7 +278,7 @@ public class HomeRunGraphicsSurface extends JComponent implements StrikeZoneObse
 	public void mouseOverHomeRun(int x, int y){
 		boolean callRepaint = false;
 		int delta = 5;
-		for (HomeRun hr1: myHomeRunList){ //traverse arraylist
+		for (GPSDataPoint hr1: myHomeRunList){ //traverse arraylist
 			if(((x > (hr1.getXpos() - delta )) && (x < (hr1.getXpos() + delta))) &&
 			((y > (hr1.getYpos() - delta)) && (y < (hr1.getYpos() + delta)))){
 				mouseOverRepaintCount = 0;
@@ -336,9 +336,9 @@ public class HomeRunGraphicsSurface extends JComponent implements StrikeZoneObse
 	 *Description: 
 	 */
 	@SuppressWarnings("unchecked")
-	public void updateHomeRunGraphicsSurface(ArrayList<HomeRun> homeRunList){
+	public void updateHomeRunGraphicsSurface(ArrayList<GPSDataPoint> homeRunList){
 		myHomeRunList2 = homeRunList;
-		myHomeRunList = (ArrayList<HomeRun>) homeRunList.clone();
+		myHomeRunList = (ArrayList<GPSDataPoint>) homeRunList.clone();
 		repaint();
 	}
 	
@@ -397,7 +397,7 @@ public class HomeRunGraphicsSurface extends JComponent implements StrikeZoneObse
 	 *Description: 
 	 */
 	public void notifyHomeRunObserversMouseOver(){
-		ArrayList<HomeRun> hrList = new ArrayList<HomeRun>();
+		ArrayList<GPSDataPoint> hrList = new ArrayList<GPSDataPoint>();
 		hrList.add(hr);
 		for (HomeRunObserver hrObserver: homeRunObservers){
 			hrObserver.update(hrList);
@@ -409,7 +409,7 @@ public class HomeRunGraphicsSurface extends JComponent implements StrikeZoneObse
 	 *Description: 
 	 */
 	public void notifyHomeRunObservers(){
-		ArrayList<HomeRun> hrList = new ArrayList<HomeRun>();
+		ArrayList<GPSDataPoint> hrList = new ArrayList<GPSDataPoint>();
 		hrList = myHomeRunList;
 		for (HomeRunObserver hrObserver: homeRunObservers){
 			hrObserver.update(hrList);
@@ -489,7 +489,7 @@ public class HomeRunGraphicsSurface extends JComponent implements StrikeZoneObse
 	 *   window 
 	 */
 	@Override
-	public void update(HomeRun hr) {
+	public void update(GPSDataPoint hr) {
 		this.hr = hr;
 		mouseOverStrikeZone = true;	
 		repaint();

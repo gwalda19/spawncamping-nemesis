@@ -50,9 +50,9 @@ public class HomeRunStatsGui extends JFrame implements HomeRunObserver{
 	private final JComboBox comboboxLRHandedBatter;
 	private final JComboBox comboboxStartDate;
 	private final JComboBox comboboxEndDate;
-	private static ArrayList<HomeRun> masterList = new ArrayList<HomeRun>();
-	private ArrayList<HomeRun> filteredHomeRunArrayList = new ArrayList<HomeRun>();
-	private final ArrayList<HomeRun> backupFilteredHomeRunArrayList = new ArrayList<HomeRun>();
+	private static ArrayList<GPSDataPoint> masterList = new ArrayList<GPSDataPoint>();
+	private ArrayList<GPSDataPoint> filteredHomeRunArrayList = new ArrayList<GPSDataPoint>();
+	private final ArrayList<GPSDataPoint> backupFilteredHomeRunArrayList = new ArrayList<GPSDataPoint>();
 	private final HomeRunGraphicsSurface hrGraphicsSurf = new HomeRunGraphicsSurface(masterList);
 	private final PitchLocationGraphicsSurface locationGraphSurf = new PitchLocationGraphicsSurface(masterList);
 	private final JTextField jtfDistanceMax;
@@ -90,7 +90,7 @@ public class HomeRunStatsGui extends JFrame implements HomeRunObserver{
 	/**
 	 * Create the frame.
 	 */
-	public HomeRunStatsGui(final ArrayList<HomeRun> masterList) {
+	public HomeRunStatsGui(final ArrayList<GPSDataPoint> masterList) {
 		setTitle("Home Run Stats");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 1200, 900);
@@ -378,7 +378,7 @@ public class HomeRunStatsGui extends JFrame implements HomeRunObserver{
 		String columnsHeader = "HR#\tDISTANCE\tBATTER\tBATTER TEAM\tPITCHER\tPITCHER TEAM\t\tINNING\tRBIS\n";
 		String filteredStats = "";
 
-		for (HomeRun hr: filteredHomeRunArrayList){ //traverse arraylist
+		for (GPSDataPoint hr: filteredHomeRunArrayList){ //traverse arraylist
 			//build homerun data for each homerun into string
 			//TODO: add more stats to stat window
 			filteredStats += hr.getHomeRunId() + "\t";
@@ -428,7 +428,7 @@ public class HomeRunStatsGui extends JFrame implements HomeRunObserver{
 
 
 	@Override
-	public void update(ArrayList<HomeRun> homeRunListArrayList) {
+	public void update(ArrayList<GPSDataPoint> homeRunListArrayList) {
 		// TODO Auto-generated method stub
 
 	}
@@ -490,7 +490,7 @@ public class HomeRunStatsGui extends JFrame implements HomeRunObserver{
 					//ArrayList<HomeRun> HomeRunArrayList = new ArrayList<HomeRun>();
 
 					//call filter method from filter class and pass filter string
-					filteredHomeRunArrayList = FilterHomeRunArrayList.filter(masterList, filterString);
+					filteredHomeRunArrayList = FilterGPSDataPointList.filter(masterList, filterString);
 					//update baseball field gui to display only filtered home run locations
 					hrGraphicsSurf.updateHomeRunGraphicsSurface(filteredHomeRunArrayList);
 					locationGraphSurf.updatePitchLocationGraphicsSurface(filteredHomeRunArrayList);

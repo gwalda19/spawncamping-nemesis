@@ -7,7 +7,7 @@
 
 package battlefieldAirmanPlayer;
 
-public class HomeRun {
+public class GPSDataPoint {
 	
 	//Variable declarations for all of the object attributes 
 	private int homeRunID;
@@ -53,7 +53,7 @@ public class HomeRun {
 	 *              HomeRun object based on the values stored in the homeRun
 	 *              array.
 	 */
-	public HomeRun(String[] homeRun){
+	public GPSDataPoint(String[] homeRun){
 		this.homeRunID = Integer.parseInt(homeRun[i]);
 		i++;
 		

@@ -25,12 +25,12 @@ public class ReadCSV {
 	 *              to create a HomeRun object which is then added to the
 	 *              ArrayList called masterHomeRunList
 	 */
-	public static ArrayList<HomeRun> read() {
+	public static ArrayList<GPSDataPoint> read() {
 		String csvFile = "./bin/Project2Data.csv";
 		BufferedReader br = null;
 		String line = "";
 		String csvSplitBy = ",";
-		ArrayList<HomeRun> masterHomeRunList = new ArrayList<HomeRun>();
+		ArrayList<GPSDataPoint> masterHomeRunList = new ArrayList<GPSDataPoint>();
 		
 		//do the following and catch any exceptions
 		try {
@@ -48,7 +48,7 @@ public class ReadCSV {
 				
 				//create an object for this line of data and add it to the masterHomeRunList
 				masterHomeRunList.add(new
-						HomeRun(homeRun));
+						GPSDataPoint(homeRun));
 			}
 		} catch (FileNotFoundException e) {
 			//file not found so print the stack trace for debugging

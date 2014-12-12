@@ -24,18 +24,18 @@ public class PitchLocationGraphicsSurface extends JComponent implements HomeRunO
 	private static final long serialVersionUID = 1L;
 	private ArrayList<StrikeZoneObserver> strikeZoneObservers = new ArrayList<StrikeZoneObserver>();
 	private Image zone = null;
-	private ArrayList<HomeRun> homeRunList;
+	private ArrayList<GPSDataPoint> homeRunList;
 	private boolean mouseOverHomeRun = false;
 	private int mouseOverRepaintCount = 0;
-	private HomeRun homeRun;
-	private HomeRun hr;
+	private GPSDataPoint homeRun;
+	private GPSDataPoint hr;
 	private int x1;
 	private int y1;
     private float xoffsetMouseHr = 0;
     private float zoffsetMouseHr = 0;
 
 
-	public PitchLocationGraphicsSurface(ArrayList<HomeRun> homeRunList)
+	public PitchLocationGraphicsSurface(ArrayList<GPSDataPoint> homeRunList)
 	{
 		this.homeRunList = homeRunList;
 		this.addMouseMotionListener(new MouseMotionListener()
@@ -67,7 +67,7 @@ public class PitchLocationGraphicsSurface extends JComponent implements HomeRunO
         
         
 		int delta = 3;
-		ListIterator<HomeRun> iter = homeRunList.listIterator();
+		ListIterator<GPSDataPoint> iter = homeRunList.listIterator();
 		while (iter.hasNext()) {
 			hr = iter.next();
 			
@@ -161,7 +161,7 @@ public class PitchLocationGraphicsSurface extends JComponent implements HomeRunO
 		g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
 		g2d.setFont(new Font("Serif", Font.BOLD, 20));			
 		
-		ListIterator<HomeRun> stance_iter = homeRunList.listIterator();
+		ListIterator<GPSDataPoint> stance_iter = homeRunList.listIterator();
 		while (stance_iter.hasNext()) 
 		{
 			homeRun = stance_iter.next();
@@ -206,7 +206,7 @@ public class PitchLocationGraphicsSurface extends JComponent implements HomeRunO
         
 		//Traverse home run list and use the below algorithm to determine
 		//the exact pitch location
-		ListIterator<HomeRun> iter = homeRunList.listIterator();
+		ListIterator<GPSDataPoint> iter = homeRunList.listIterator();
 		while (iter.hasNext()) {
 			homeRun = iter.next();
 			double xpitch = (-1 * homeRun.getPitchXPos());
@@ -247,7 +247,7 @@ public class PitchLocationGraphicsSurface extends JComponent implements HomeRunO
 		return tempImage;
 	}
 	
-	public void updatePitchLocationGraphicsSurface(ArrayList<HomeRun> homeRunList){
+	public void updatePitchLocationGraphicsSurface(ArrayList<GPSDataPoint> homeRunList){
 		this.homeRunList = homeRunList;
 		repaint();
 	}
@@ -262,7 +262,7 @@ public class PitchLocationGraphicsSurface extends JComponent implements HomeRunO
 	}
 
 	@Override
-	public void update(ArrayList<HomeRun> hrList) {
+	public void update(ArrayList<GPSDataPoint> hrList) {
 		this.homeRunList = hrList;
 		repaint();
 	}

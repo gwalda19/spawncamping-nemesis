@@ -24,12 +24,12 @@ public class CreateLists {
 	 *              array. If the date already exists, don't add it. If the date does
 	 *              not exist in the dateList array, then add it.
 	 */
-	public static ArrayList<String> createDateList(ArrayList<HomeRun> masterList) {
+	public static ArrayList<String> createDateList(ArrayList<GPSDataPoint> masterList) {
 		ArrayList<String> dateList = new ArrayList<String>();
-		for (HomeRun hr: masterList){
-			if (dateList.contains(hr.getDate())){
+		for (GPSDataPoint dataPoint: masterList){
+			if (dateList.contains(dataPoint.getDate())){
 			} else {
-				dateList.add(hr.getDate());
+				dateList.add(dataPoint.getDate());
 			}
 		}
 		return dateList;
@@ -48,12 +48,12 @@ public class CreateLists {
 	 *              distanceList array. If the distance already exists, don't add it.
 	 *              If the distance does not exist in the dateList array, then add it.
 	 */
-	public static ArrayList<Integer> createDistanceList(ArrayList<HomeRun> masterList) {
+	public static ArrayList<Integer> createDistanceList(ArrayList<GPSDataPoint> masterList) {
 		ArrayList<Integer> distanceList = new ArrayList<Integer>();
-		for (HomeRun hr: masterList){
-			if (distanceList.contains(hr.getDistance())){
+		for (GPSDataPoint dataPoint: masterList){
+			if (distanceList.contains(dataPoint.getDistance())){
 			} else {
-				distanceList.add(hr.getDistance());
+				distanceList.add(dataPoint.getDistance());
 			}
 		}
 		return distanceList;
@@ -72,13 +72,13 @@ public class CreateLists {
 	 *              batterFullNameList array. If the name already exists, don't add it.
 	 *              If the name does not exist in the array, then add it.
 	 */
-	public static ArrayList<String> createBatterFullNameList(ArrayList<HomeRun> masterList) {
+	public static ArrayList<String> createBatterFullNameList(ArrayList<GPSDataPoint> masterList) {
 		ArrayList<String> batterFullNameList = new ArrayList<String>();
 		batterFullNameList.add("ALL");
-		for (HomeRun hr: masterList){
-			if (batterFullNameList.contains(hr.getBatterFullName())){
+		for (GPSDataPoint dataPoint: masterList){
+			if (batterFullNameList.contains(dataPoint.getBatterFullName())){
 			} else {
-				batterFullNameList.add(hr.getBatterFullName());
+				batterFullNameList.add(dataPoint.getBatterFullName());
 			}
 		}
 		return batterFullNameList;
@@ -96,13 +96,13 @@ public class CreateLists {
 	 *              batterTeamList array. If the name already exists, don't add it.
 	 *              If the name does not exist in the array, then add it.
 	 */
-	public static ArrayList<String> createBatterTeamList(ArrayList<HomeRun> masterList) {
+	public static ArrayList<String> createBatterTeamList(ArrayList<GPSDataPoint> masterList) {
 		ArrayList<String> batterTeamList = new ArrayList<String>();
 		batterTeamList.add("ALL");
-		for (HomeRun hr: masterList){
-			if (batterTeamList.contains(hr.getBatterTeam())){
+		for (GPSDataPoint dataPoint: masterList){
+			if (batterTeamList.contains(dataPoint.getBatterTeam())){
 			} else {
-				batterTeamList.add(hr.getBatterTeam());
+				batterTeamList.add(dataPoint.getBatterTeam());
 			}
 		}
 		return batterTeamList;
@@ -121,13 +121,13 @@ public class CreateLists {
 	 *              pitcherFullNameList array. If the name already exists, don't add it.
 	 *              If the name does not exist in the array, then add it.
 	 */
-	public static ArrayList<String> createPitcherFullNameList(ArrayList<HomeRun> masterList) {
+	public static ArrayList<String> createPitcherFullNameList(ArrayList<GPSDataPoint> masterList) {
 		ArrayList<String> pitcherFullNameList = new ArrayList<String>();
 		pitcherFullNameList.add("ALL");
-		for (HomeRun hr: masterList){
-			if (pitcherFullNameList.contains(hr.getPitcherFullName())){
+		for (GPSDataPoint dataPoint: masterList){
+			if (pitcherFullNameList.contains(dataPoint.getPitcherFullName())){
 			} else {
-				pitcherFullNameList.add(hr.getPitcherFullName());
+				pitcherFullNameList.add(dataPoint.getPitcherFullName());
 			}
 		}
 		return pitcherFullNameList;
@@ -145,13 +145,13 @@ public class CreateLists {
 	 *              pitcherTeamList array. If the name already exists, don't add it.
 	 *              If the name does not exist in the array, then add it.
 	 */
-	public static ArrayList<String> createPitcherTeamList(ArrayList<HomeRun> masterList) {
+	public static ArrayList<String> createPitcherTeamList(ArrayList<GPSDataPoint> masterList) {
 		ArrayList<String> pitcherTeamList = new ArrayList<String>();
 		pitcherTeamList.add("ALL");
-		for (HomeRun hr: masterList){
-			if (pitcherTeamList.contains(hr.getPitcherTeam())){
+		for (GPSDataPoint dataPoint: masterList){
+			if (pitcherTeamList.contains(dataPoint.getPitcherTeam())){
 			} else {
-				pitcherTeamList.add(hr.getPitcherTeam());
+				pitcherTeamList.add(dataPoint.getPitcherTeam());
 			}
 		}
 		return pitcherTeamList;
@@ -170,12 +170,12 @@ public class CreateLists {
 	 *              inningsList array. If the inning already exists, don't add it.
 	 *              If the inning does not exist in the array, then add it.
 	 */
-	public static ArrayList<Integer> createInningsList(ArrayList<HomeRun> masterList) {
+	public static ArrayList<Integer> createInningsList(ArrayList<GPSDataPoint> masterList) {
 		ArrayList<Integer> inningsList = new ArrayList<Integer>();
-		for (HomeRun hr: masterList){
-			if (inningsList.contains(hr.getInning())){
+		for (GPSDataPoint dataPoint: masterList){
+			if (inningsList.contains(dataPoint.getInning())){
 			} else {
-				inningsList.add(hr.getInning());
+				inningsList.add(dataPoint.getInning());
 			}
 		}
 		return inningsList;
@@ -194,12 +194,12 @@ public class CreateLists {
 	 *              philliesScoreList array. If the value already exists, don't add it.
 	 *              If the value does not exist in the array, then add it.
 	 */
-	public static ArrayList<Integer> createPhilliesScoreList(ArrayList<HomeRun> masterList) {
+	public static ArrayList<Integer> createPhilliesScoreList(ArrayList<GPSDataPoint> masterList) {
 		ArrayList<Integer> philliesScoreList = new ArrayList<Integer>();
-		for (HomeRun hr: masterList){
-			if (philliesScoreList.contains(hr.getPhilliesScore())){
+		for (GPSDataPoint dataPoint: masterList){
+			if (philliesScoreList.contains(dataPoint.getPhilliesScore())){
 			} else {
-				philliesScoreList.add(hr.getPhilliesScore());
+				philliesScoreList.add(dataPoint.getPhilliesScore());
 			}
 		}
 		return philliesScoreList;
@@ -218,12 +218,12 @@ public class CreateLists {
 	 *              visitorScoreList array. If the value already exists, don't add it.
 	 *              If the value does not exist in the array, then add it.
 	 */
-	public static ArrayList<Integer> createVisitorScoreList(ArrayList<HomeRun> masterList) {
+	public static ArrayList<Integer> createVisitorScoreList(ArrayList<GPSDataPoint> masterList) {
 		ArrayList<Integer> visitorScoreList = new ArrayList<Integer>();
-		for (HomeRun hr: masterList){
-			if (visitorScoreList.contains(hr.getVisitorsScore())){
+		for (GPSDataPoint dataPoint: masterList){
+			if (visitorScoreList.contains(dataPoint.getVisitorsScore())){
 			} else {
-				visitorScoreList.add(hr.getVisitorsScore());
+				visitorScoreList.add(dataPoint.getVisitorsScore());
 			}
 		}
 		return visitorScoreList;
