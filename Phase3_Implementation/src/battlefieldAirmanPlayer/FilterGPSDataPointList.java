@@ -28,14 +28,14 @@ public class FilterGPSDataPointList {
 			//make sure index aligns with way you store them in other file
 
 
-			homeRunDate = df.parse(dataPoint.getDate());
+			//homeRunDate = df.parse(dataPoint.getDate());
 
-			if (startDate.compareTo(homeRunDate)>0) continue;//startDate is after homeRunDate
-			if (endDate.compareTo(homeRunDate)<0) continue;//endDate is before homeRunDate
+			//if (startDate.compareTo(homeRunDate)>0) continue;//startDate is after homeRunDate
+			//if (endDate.compareTo(homeRunDate)<0) continue;//endDate is before homeRunDate
 					    
 	
 				
-				
+				/*
 				//if (filterString[0] > hr.getDate() && filterString[0] != "ALL") continue; //TODO:fix comparison
 				//if (filterString[1] < hr.getDate() && filterString[1] != "ALL") continue; //TODO:fix comparison
 				if (!(filterString[2].equals(dataPoint.getBatterTeam())) && !(filterString[2].equals("ALL"))) continue; 
@@ -54,9 +54,9 @@ public class FilterGPSDataPointList {
 				if (!(filterString[15].equals(dataPoint.getStance())) && !(filterString[15].equals("ALL"))) continue; 
 				if (Integer.parseInt(filterString[16]) > dataPoint.getDistance()) continue;
 				if (Integer.parseInt(filterString[17]) < dataPoint.getDistance()) continue;
-				
+				*/
 				//all criteria match so add homerun to subset arraylist
-				filteredGPSDataPointList.add(dataPoint);
+				//filteredGPSDataPointList.add(dataPoint);
 			}//end for
 		}//end try 
 		catch (ParseException e) {
