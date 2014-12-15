@@ -25,7 +25,7 @@ import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.border.EmptyBorder;
 
-public class HomeRunStatsGui extends JFrame implements HomeRunObserver{
+public class BattleFieldAirmanGui extends JFrame implements HomeRunObserver{
 
 	/**
 	 *
@@ -34,22 +34,22 @@ public class HomeRunStatsGui extends JFrame implements HomeRunObserver{
 	private static final long serialVersionUID = 1L;
 	private final JPanel contentPane;
 	private final JTextArea jtaStats;
-	private final JComboBox comboboxBatterTeam;
-	private final JComboBox comboboxPitcherTeam;
-	private final JComboBox comboboxBatter;
-	private final JComboBox comboboxPitcher;
-	private final JComboBox comboboxInning;
-	private final JComboBox comboboxGameOutcome;
-	private final JComboBox comboboxOuts;
-	private final JComboBox comboboxBalls;
-	private final JComboBox comboboxStrikes;
-	private final JComboBox comboboxTimeOfDay;
-	private final JComboBox comboboxPhilliesScore;
-	private final JComboBox comboboxVisitorsScore;
-	private final JComboBox comboboxRunsScored;
-	private final JComboBox comboboxLRHandedBatter;
-	private final JComboBox comboboxStartDate;
-	private final JComboBox comboboxEndDate;
+	private final JComboBox comboboxBatterTeam = new JComboBox();
+	private final JComboBox comboboxPitcherTeam = new JComboBox();
+	private final JComboBox comboboxBatter = new JComboBox();
+	private final JComboBox comboboxPitcher = new JComboBox();
+	private final JComboBox comboboxInning = new JComboBox();
+	private final JComboBox comboboxGameOutcome = new JComboBox();
+	private final JComboBox comboboxOuts = new JComboBox();
+	private final JComboBox comboboxBalls = new JComboBox();
+	private final JComboBox comboboxStrikes = new JComboBox();
+	private final JComboBox comboboxTimeOfDay = new JComboBox();
+	private final JComboBox comboboxPhilliesScore = new JComboBox();
+	private final JComboBox comboboxVisitorsScore = new JComboBox();
+	private final JComboBox comboboxRunsScored = new JComboBox();
+	private final JComboBox comboboxLRHandedBatter = new JComboBox();
+	private final JComboBox comboboxStartDate = new JComboBox();
+	private final JComboBox comboboxEndDate = new JComboBox();
 	private static ArrayList<GPSDataPoint> masterList = new ArrayList<GPSDataPoint>();
 	private ArrayList<GPSDataPoint> filteredHomeRunArrayList = new ArrayList<GPSDataPoint>();
 	private final ArrayList<GPSDataPoint> backupFilteredHomeRunArrayList = new ArrayList<GPSDataPoint>();
@@ -77,8 +77,8 @@ public class HomeRunStatsGui extends JFrame implements HomeRunObserver{
 			    //passDialog.setVisible(true);
 
 					//Remove the below line when the above lines are back in.
-					HomeRunStatsGui frame = new HomeRunStatsGui(masterList);
-			    frame = new HomeRunStatsGui(masterList);
+					BattleFieldAirmanGui frame = new BattleFieldAirmanGui(masterList);
+			    frame = new BattleFieldAirmanGui(masterList);
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -90,7 +90,7 @@ public class HomeRunStatsGui extends JFrame implements HomeRunObserver{
 	/**
 	 * Create the frame.
 	 */
-	public HomeRunStatsGui(final ArrayList<GPSDataPoint> masterList) {
+	public BattleFieldAirmanGui(final ArrayList<GPSDataPoint> masterList) {
 		setTitle("Home Run Stats");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 1200, 900);
@@ -127,15 +127,15 @@ public class HomeRunStatsGui extends JFrame implements HomeRunObserver{
 		pnlController.add(lblFilterBySpacer);
 
 		//populate distance into textfield after sorting numerically
-		ArrayList<Integer> distanceArrayTemp = CreateLists.createDistanceList(masterList);
-		final Integer[] distanceArray = distanceArrayTemp.toArray(new Integer[distanceArrayTemp.size()]);
-		java.util.Arrays.sort(distanceArray);
+		//ArrayList<Integer> distanceArrayTemp = CreateLists.createDistanceList(masterList);
+		//final Integer[] distanceArray = distanceArrayTemp.toArray(new Integer[distanceArrayTemp.size()]);
+		//java.util.Arrays.sort(distanceArray);
 
 		JLabel lblDistanceMin = new JLabel("Minimum Distance");
 		pnlController.add(lblDistanceMin);
 
 		jtfDistanceMin = new JTextField();
-		jtfDistanceMin.setText(distanceArray[0].toString());
+		//jtfDistanceMin.setText(distanceArray[0].toString());
 		pnlController.add(jtfDistanceMin);
 		jtfDistanceMin.setColumns(10);
 
@@ -143,7 +143,7 @@ public class HomeRunStatsGui extends JFrame implements HomeRunObserver{
 		pnlController.add(lblDistanceMax);
 
 		jtfDistanceMax = new JTextField();
-		jtfDistanceMax.setText(distanceArray[distanceArray.length - 1].toString());
+		//jtfDistanceMax.setText(distanceArray[distanceArray.length - 1].toString());
 		pnlController.add(jtfDistanceMax);
 		jtfDistanceMax.setColumns(10);
 
@@ -151,11 +151,11 @@ public class HomeRunStatsGui extends JFrame implements HomeRunObserver{
 		pnlController.add(lblStartDate);
 
 		//populate date into combobox after sorting numerically
-		ArrayList<String> dateArrayTemp = CreateLists.createDateList(masterList);
-		final String[] dateArray = dateArrayTemp.toArray(new String[dateArrayTemp.size()]);
-		java.util.Arrays.sort(dateArray);
+		//ArrayList<String> dateArrayTemp = CreateLists.createDateList(masterList);
+		//final String[] dateArray = dateArrayTemp.toArray(new String[dateArrayTemp.size()]);
+		//java.util.Arrays.sort(dateArray);
 
-		comboboxStartDate = new JComboBox(dateArray);
+		//comboboxStartDate = new JComboBox(dateArray);
 		pnlController.add(comboboxStartDate);
 
 		//TODO: add code to force input to date format only
@@ -163,71 +163,71 @@ public class HomeRunStatsGui extends JFrame implements HomeRunObserver{
 		JLabel lblEndDate = new JLabel("End Date");
 		pnlController.add(lblEndDate);
 
-		comboboxEndDate = new JComboBox(dateArray);
-		comboboxEndDate.setSelectedIndex(dateArray.length - 1);
+		//comboboxEndDate = new JComboBox(dateArray);
+		//comboboxEndDate.setSelectedIndex(dateArray.length - 1);
 		pnlController.add(comboboxEndDate);
 
 		JLabel lblBatterTeam = new JLabel("Batter Team");
 		pnlController.add(lblBatterTeam);
 
 		//populate batter team names into combobox after sorting alphabetically
-		ArrayList<String> batterTeamsTemp = CreateLists.createBatterTeamList(masterList);
-		String[] batterTeams = batterTeamsTemp.toArray(new String[batterTeamsTemp.size()]);
-		java.util.Arrays.sort(batterTeams);
-		comboboxBatterTeam = new JComboBox(batterTeams);
+		//ArrayList<String> batterTeamsTemp = CreateLists.createBatterTeamList(masterList);
+		//String[] batterTeams = batterTeamsTemp.toArray(new String[batterTeamsTemp.size()]);
+		//java.util.Arrays.sort(batterTeams);
+		//comboboxBatterTeam = new JComboBox(batterTeams);
 		pnlController.add(comboboxBatterTeam);
 
 		JLabel lblPitcherTeam = new JLabel("Pitcher Team");
 		pnlController.add(lblPitcherTeam);
 
 		//populate pitcher team names into combobox after sorting alphabetically
-		ArrayList<String> pitcherTeamsTemp = CreateLists.createPitcherTeamList(masterList);
-		String[] pitcherTeams = pitcherTeamsTemp.toArray(new String[pitcherTeamsTemp.size()]);
-		java.util.Arrays.sort(pitcherTeams);
-		comboboxPitcherTeam = new JComboBox(pitcherTeams);
+		//ArrayList<String> pitcherTeamsTemp = CreateLists.createPitcherTeamList(masterList);
+		//String[] pitcherTeams = pitcherTeamsTemp.toArray(new String[pitcherTeamsTemp.size()]);
+		//java.util.Arrays.sort(pitcherTeams);
+		//comboboxPitcherTeam = new JComboBox(pitcherTeams);
 		pnlController.add(comboboxPitcherTeam);
 
 		JLabel lblBatter = new JLabel("Batter");
 		pnlController.add(lblBatter);
 
-		ArrayList<String> batterFullNameTemp = CreateLists.createBatterFullNameList(masterList);
-		String[] batterFullNames = batterFullNameTemp.toArray(new String[batterFullNameTemp.size()]);
-		java.util.Arrays.sort(batterFullNames);
-		comboboxBatter = new JComboBox(batterFullNames);
+		//ArrayList<String> batterFullNameTemp = CreateLists.createBatterFullNameList(masterList);
+		//String[] batterFullNames = batterFullNameTemp.toArray(new String[batterFullNameTemp.size()]);
+		//java.util.Arrays.sort(batterFullNames);
+		//comboboxBatter = new JComboBox(batterFullNames);
 		pnlController.add(comboboxBatter);
 
 		JLabel lblPitcher = new JLabel("Pitcher");
 		pnlController.add(lblPitcher);
 
-		ArrayList<String> pitcherFullNameTemp = CreateLists.createPitcherFullNameList(masterList);
-		String[] pitcherFullNames = pitcherFullNameTemp.toArray(new String[pitcherFullNameTemp.size()]);
-		java.util.Arrays.sort(pitcherFullNames);
-		comboboxPitcher = new JComboBox(pitcherFullNames);
+		//ArrayList<String> pitcherFullNameTemp = CreateLists.createPitcherFullNameList(masterList);
+		//String[] pitcherFullNames = pitcherFullNameTemp.toArray(new String[pitcherFullNameTemp.size()]);
+		//java.util.Arrays.sort(pitcherFullNames);
+		//comboboxPitcher = new JComboBox(pitcherFullNames);
 		pnlController.add(comboboxPitcher);
 
 		JLabel lblInning = new JLabel("Inning");
 		pnlController.add(lblInning);
 
 		//populate innings into combobox after sorting numerically
-		ArrayList<Integer> inningsTemp = CreateLists.createInningsList(masterList);
-		Collections.sort(inningsTemp);
-		inningsTemp.add(0, 999);
-		Integer[] innings = inningsTemp.toArray(new Integer[inningsTemp.size()]);
-		comboboxInning = new JComboBox(innings);
+		//ArrayList<Integer> inningsTemp = CreateLists.createInningsList(masterList);
+		//Collections.sort(inningsTemp);
+		//inningsTemp.add(0, 999);
+		//Integer[] innings = inningsTemp.toArray(new Integer[inningsTemp.size()]);
+		//comboboxInning = new JComboBox(innings);
 		pnlController.add(comboboxInning);
 
 		JLabel lblGameOutcome = new JLabel("Game Outcome:");
 		pnlController.add(lblGameOutcome);
 
 		String[] outcomes = {"ALL", "Win", "Loss"};
-		comboboxGameOutcome = new JComboBox(outcomes);
+		//comboboxGameOutcome = new JComboBox(outcomes);
 		pnlController.add(comboboxGameOutcome);
 
 		JLabel lblOuts = new JLabel("Outs");
 		pnlController.add(lblOuts);
 
 		Integer[] outs = {999, 0, 1, 2};
-		comboboxOuts = new JComboBox(outs);
+		//comboboxOuts = new JComboBox(outs);
 		//comboboxOuts.setSelectedIndex(-1);
 		pnlController.add(comboboxOuts);
 
@@ -235,7 +235,7 @@ public class HomeRunStatsGui extends JFrame implements HomeRunObserver{
 		pnlController.add(lblBalls);
 
 		Integer[] balls = {999, 0, 1, 2, 3};
-		comboboxBalls = new JComboBox(balls);
+		//comboboxBalls = new JComboBox(balls);
 		//comboboxBalls.setSelectedIndex(-1);
 		pnlController.add(comboboxBalls);
 
@@ -243,7 +243,7 @@ public class HomeRunStatsGui extends JFrame implements HomeRunObserver{
 		pnlController.add(lblStrikes);
 
 		Integer[] strikes = {999, 0, 1, 2};
-		comboboxStrikes = new JComboBox(strikes);
+		//comboboxStrikes = new JComboBox(strikes);
 		//comboboxStrikes.setSelectedIndex(-1);
 		pnlController.add(comboboxStrikes);
 
@@ -251,38 +251,36 @@ public class HomeRunStatsGui extends JFrame implements HomeRunObserver{
 		pnlController.add(lblTimeOfDay);
 
 		String[] tod = {"ALL", "Day", "Night"};
-		comboboxTimeOfDay = new JComboBox(tod);
+		//comboboxTimeOfDay = new JComboBox(tod);
 		pnlController.add(comboboxTimeOfDay);
 
 		JLabel lblPhilliesScore = new JLabel("Phillies Score");
 		pnlController.add(lblPhilliesScore);
 
 		//populate phillies scores into combobox after sorting numerically
-		ArrayList<Integer> philliesScoreTemp = CreateLists.createPhilliesScoreList(masterList);
-		Collections.sort(philliesScoreTemp);
-		philliesScoreTemp.add(0, 999);
-		Integer[] philliesScore = philliesScoreTemp.toArray(new Integer[philliesScoreTemp.size()]);
-		comboboxPhilliesScore = new JComboBox(philliesScore);
-		//comboboxPhilliesScore.setSelectedIndex(-1);
+		//ArrayList<Integer> philliesScoreTemp = CreateLists.createPhilliesScoreList(masterList);
+		//Collections.sort(philliesScoreTemp);
+		//philliesScoreTemp.add(0, 999);
+		//Integer[] philliesScore = philliesScoreTemp.toArray(new Integer[philliesScoreTemp.size()]);
+		//comboboxPhilliesScore = new JComboBox(philliesScore);
 		pnlController.add(comboboxPhilliesScore);
 
 		JLabel lblVisitorsScore = new JLabel("Visitors Score");
 		pnlController.add(lblVisitorsScore);
 
 		//populate visitors scores into combobox after sorting numerically
-		ArrayList<Integer> visitorScoreTemp = CreateLists.createVisitorScoreList(masterList);
-		Collections.sort(visitorScoreTemp);
-		visitorScoreTemp.add(0, 999);
-		Integer[] visitorScore = visitorScoreTemp.toArray(new Integer[visitorScoreTemp.size()]);
-		comboboxVisitorsScore = new JComboBox(visitorScore);
-		//comboboxVisitorsScore.setSelectedIndex(-1);
+		//ArrayList<Integer> visitorScoreTemp = CreateLists.createVisitorScoreList(masterList);
+		//Collections.sort(visitorScoreTemp);
+		//visitorScoreTemp.add(0, 999);
+		//Integer[] visitorScore = visitorScoreTemp.toArray(new Integer[visitorScoreTemp.size()]);
+		//comboboxVisitorsScore = new JComboBox(visitorScore);
 		pnlController.add(comboboxVisitorsScore);
 
 		JLabel lblRunsScored = new JLabel("Runs Scored");
 		pnlController.add(lblRunsScored);
 
 		Integer[] runsScored = {999, 1, 2, 3, 4};
-		comboboxRunsScored = new JComboBox(runsScored);
+		//comboboxRunsScored = new JComboBox(runsScored);
 		//comboboxRunsScored.setSelectedIndex(-1);
 		pnlController.add(comboboxRunsScored);
 
@@ -290,7 +288,7 @@ public class HomeRunStatsGui extends JFrame implements HomeRunObserver{
 		pnlController.add(lblLRHandedBatter);
 
 		String[] lrhb = {"ALL", "Left", "Right"};
-		comboboxLRHandedBatter = new JComboBox(lrhb);
+		//comboboxLRHandedBatter = new JComboBox(lrhb);
 		pnlController.add(comboboxLRHandedBatter);
 
 		JLabel lblResetSpacer = new JLabel("");
@@ -340,10 +338,10 @@ public class HomeRunStatsGui extends JFrame implements HomeRunObserver{
 			@Override
       public void actionPerformed(ActionEvent arg0) {
 				//reset gui components to initial data here when Reset button is pressed
-				jtfDistanceMin.setText(distanceArray[0].toString());
-				jtfDistanceMax.setText(distanceArray[distanceArray.length - 1].toString());
+				//jtfDistanceMin.setText(distanceArray[0].toString());
+				//jtfDistanceMax.setText(distanceArray[distanceArray.length - 1].toString());
 				comboboxStartDate.setSelectedIndex(0);
-				comboboxEndDate.setSelectedIndex(dateArray.length - 1);
+				//comboboxEndDate.setSelectedIndex(dateArray.length - 1);
 				comboboxBatterTeam.setSelectedIndex(0);
 				comboboxPitcherTeam.setSelectedIndex(0);
 				comboboxBatter.setSelectedIndex(0);
@@ -381,15 +379,15 @@ public class HomeRunStatsGui extends JFrame implements HomeRunObserver{
 		for (GPSDataPoint hr: filteredHomeRunArrayList){ //traverse arraylist
 			//build homerun data for each homerun into string
 			//TODO: add more stats to stat window
-			filteredStats += hr.getHomeRunId() + "\t";
-			filteredStats += hr.getDistance() + "\t";
-			filteredStats += hr.getBatterLastName() + "\t";
-			filteredStats += hr.getBatterTeam() + "\t";
-			filteredStats += hr.getPitcherLastName() + "\t";
-			filteredStats += hr.getPitcherTeam() + "\t\t";
-			filteredStats += hr.getInning() + "\t";
-			filteredStats += hr.getRunsBattedIn() + "\t";
-			filteredStats += "\n";
+			//filteredStats += hr.getHomeRunId() + "\t";
+			//filteredStats += hr.getDistance() + "\t";
+			//filteredStats += hr.getBatterLastName() + "\t";
+			//filteredStats += hr.getBatterTeam() + "\t";
+			//filteredStats += hr.getPitcherLastName() + "\t";
+			//filteredStats += hr.getPitcherTeam() + "\t\t";
+			//filteredStats += hr.getInning() + "\t";
+			//filteredStats += hr.getRunsBattedIn() + "\t";
+			//filteredStats += "\n";
 
 		}
 
