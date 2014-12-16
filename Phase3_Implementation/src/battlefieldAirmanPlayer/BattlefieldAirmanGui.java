@@ -62,7 +62,7 @@ public class BattlefieldAirmanGui extends JFrame implements DataPointObserver {
 		contentPane.setLayout(new BorderLayout(0, 0));
 		setContentPane(contentPane);
 		
-		baMapGraphicsSurf.registerHomeRunObserver(this);
+		baMapGraphicsSurf.registerDataPointObserver(this);
 		
 		JSplitPane spTopBottom = new JSplitPane();
 		spTopBottom.setOrientation(JSplitPane.VERTICAL_SPLIT);
@@ -87,12 +87,10 @@ public class BattlefieldAirmanGui extends JFrame implements DataPointObserver {
             }
 	    });		
 		
-		JScrollPane pnlMap = new JScrollPane();
+		JScrollPane pnlMap = new JScrollPane(baMapGraphicsSurf);
 		spTopLR.setRightComponent(pnlMap);
-		pnlMap.setViewportView(baMapGraphicsSurf);
-		
-		JLabel lblNewLabel = new JLabel("GPS MAP WILL GO HERE");
-		pnlMap.add(lblNewLabel);
+		//pnlMap.setViewportView(baMapGraphicsSurf);
+		//pnlMap.setAutoScrolls(true);
 		
 		JSplitPane spBottomTB = new JSplitPane();
 		spTopBottom.setRightComponent(spBottomTB);

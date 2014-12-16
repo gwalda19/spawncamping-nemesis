@@ -29,12 +29,12 @@ public class BattlefieldAirmanMapGraphicsSurface extends JComponent implements S
 	private int x1 = 0;
 	private int y1 = 0;
 	private int mouseOverRepaintCount = 0;
-	private Image field = null;
+	private Image map = null;
 	private boolean mouseOverDataPoint = false;
 	//private boolean mouseOverStrikeZone = false;
 	private ArrayList<GPSDataPoint> myDataPointList;
 	private ArrayList<GPSDataPoint> myDataPointList2;// = new ArrayList<HomeRun>();
-	private ArrayList<DataPointObserver> homeRunObservers = new ArrayList<DataPointObserver>();
+	private ArrayList<DataPointObserver> dataPointObservers = new ArrayList<DataPointObserver>();
 	private GPSDataPoint dp;
 	private String HOMETEAM = "Phillies";
 	private AudioInputStream audioInputStream = null;
@@ -72,7 +72,7 @@ public class BattlefieldAirmanMapGraphicsSurface extends JComponent implements S
 			@Override
 			public void mouseClicked(MouseEvent arg0) {
 				if (arg0.getButton() == MouseEvent.BUTTON3) { 
-					notifyHomeRunObserversMouseRightClicked();
+					notifyDataPointObserversMouseRightClicked();
 				}
 				else{
 					if (arg0.getButton() == MouseEvent.BUTTON1) {
@@ -142,9 +142,9 @@ public class BattlefieldAirmanMapGraphicsSurface extends JComponent implements S
 		Graphics2D g2d = (Graphics2D) g;	
 		g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
 		
-		if (field == null)
-			field = getImage("basic_map.jpg");
-		g2d.drawImage(field, 0, 0, 750, 740, this);
+		if (map == null)
+			map = getImage("basic_map.jpg");
+		g2d.drawImage(map, 0, 0, 750, 740, this);
 		
 		// This is the diameter of the home run that is displayed
 		int diameter = 10;
@@ -209,9 +209,7 @@ public class BattlefieldAirmanMapGraphicsSurface extends JComponent implements S
 			
 		// If mouse is over home run, then display extra data for 
 		// the home run
-		/*
-		 * We will need this class. Just commenting it out for now until I get the proper CSV file
-		 * and proper parsing finished
+
 		if (isMouseOverDataPoint()){
 			g2d.setFont(new Font("Serif", Font.BOLD, 20));
 			int x1pos = getWidth() - getWidth()/4;
@@ -219,23 +217,22 @@ public class BattlefieldAirmanMapGraphicsSurface extends JComponent implements S
 			int offset = 12;
 			g2d.setColor(Color.yellow);
 			g2d.fillOval(
-					hr.getXPos() - (diameter / 2),
-					hr.getYPos() - (diameter / 2),
+					dp.getXPos() - (diameter / 2),
+					dp.getYPos() - (diameter / 2),
 					diameter, diameter);
 			g2d.setColor(Color.black);
-			g2d.drawString(hr.getBatterLastName(), hr.getXPos() + 15, hr.getYPos() + 5);
-			g2d.drawString(Integer.toString(hr.getDistance()) + " ft", hr.getXPos() + 15, hr.getYPos() + 20);
+			//g2d.drawString(dp.getBoxId(), dp.getXPos() + 15, dp.getYPos() + 5);
+			//g2d.drawString(Integer.toString(dp.getDistance()) + " ft", dp.getXPos() + 15, dp.getYPos() + 20);
 			
 			g2d.setFont(new Font("Serif", Font.BOLD, 14));
-			g2d.drawString("Home Run Number: " + hr.getHomeRunId(), x1pos, y1pos);
-			g2d.drawString("Batter: " + hr.getBatterFirstName() +" " + hr.getBatterLastName(), x1pos, y1pos += offset);
-			g2d.drawString("Team: " + hr.getBatterTeam(), x1pos, y1pos += offset);
-			g2d.drawString("Home Run Distance: " + Integer.toString(hr.getDistance()) + " ft", x1pos, y1pos += offset);
+			g2d.drawString("Box Number: " + dp.getBoxId(), x1pos, y1pos);
+			g2d.drawString("Latitude: " + dp.getLatitude(), x1pos, y1pos += offset);
+			g2d.drawString("Longitude: " + dp.getLongitude(), x1pos, y1pos += offset);
+			//g2d.drawString("Home Run Distance: " + Integer.toString(dp.getDistance()) + " ft", x1pos, y1pos += offset);
 			
 			//displayHomeRunInfo(g2d, diameter);
-			notifyHomeRunObserversMouseOver();
+			notifyDataPointObserversMouseOver();
 		}
-		*/
 
 		/*
 		 * We probably won't need this for BA..
@@ -322,7 +319,7 @@ public class BattlefieldAirmanMapGraphicsSurface extends JComponent implements S
 		if(mouseOverRepaintCount == 1){
 		
 			repaint();
-			notifyHomeRunObservers();
+			notifyDataPointObservers();
 		}
 		// If the mouse is outside the boundaries of a home run
 		// increment mouseOverRepaintCount so the image and home runs
@@ -392,8 +389,8 @@ public class BattlefieldAirmanMapGraphicsSurface extends JComponent implements S
 	 *Function: registerHomeRunObserver
 	 *Description: 
 	 */
-	public void registerHomeRunObserver(DataPointObserver hrObserver){
-		homeRunObservers.add(hrObserver);
+	public void registerDataPointObserver(DataPointObserver dpObserver){
+		dataPointObservers.add(dpObserver);
 	}
 	
 
@@ -402,7 +399,7 @@ public class BattlefieldAirmanMapGraphicsSurface extends JComponent implements S
 	 *Description: 
 	 */
 	public void notifyHomeRunObserversMouseClicked(){
-		for (DataPointObserver hrObserver: homeRunObservers){			
+		for (DataPointObserver hrObserver: dataPointObservers){			
 			hrObserver.update(myDataPointList2.indexOf(dp));
 		}
 	}
@@ -411,9 +408,9 @@ public class BattlefieldAirmanMapGraphicsSurface extends JComponent implements S
 	 *Function: notifyHomeRunObserversMouseClick
 	 *Description: 
 	 */
-	public void notifyHomeRunObserversMouseRightClicked(){
-		for (DataPointObserver hrObserver: homeRunObservers){			
-			hrObserver.update();
+	public void notifyDataPointObserversMouseRightClicked(){
+		for (DataPointObserver dpObserver: dataPointObservers){			
+			dpObserver.update();
 		}
 	}
 
@@ -421,11 +418,11 @@ public class BattlefieldAirmanMapGraphicsSurface extends JComponent implements S
 	 *Function: notifyHomeRunObserversMouseOver
 	 *Description: 
 	 */
-	public void notifyHomeRunObserversMouseOver(){
-		ArrayList<GPSDataPoint> hrList = new ArrayList<GPSDataPoint>();
-		hrList.add(dp);
-		for (DataPointObserver hrObserver: homeRunObservers){
-			hrObserver.update(hrList);
+	public void notifyDataPointObserversMouseOver(){
+		ArrayList<GPSDataPoint> dpList = new ArrayList<GPSDataPoint>();
+		dpList.add(dp);
+		for (DataPointObserver dpObserver: dataPointObservers){
+			dpObserver.update(dpList);
 		}
 	}
 
@@ -433,11 +430,11 @@ public class BattlefieldAirmanMapGraphicsSurface extends JComponent implements S
 	 *Function: notifyHomeRunObservers
 	 *Description: 
 	 */
-	public void notifyHomeRunObservers(){
-		ArrayList<GPSDataPoint> hrList = new ArrayList<GPSDataPoint>();
-		hrList = myDataPointList;
-		for (DataPointObserver hrObserver: homeRunObservers){
-			hrObserver.update(hrList);
+	public void notifyDataPointObservers(){
+		ArrayList<GPSDataPoint> dpList = new ArrayList<GPSDataPoint>();
+		dpList = myDataPointList;
+		for (DataPointObserver dpObserver: dataPointObservers){
+			dpObserver.update(dpList);
 		}
 	}
 	
