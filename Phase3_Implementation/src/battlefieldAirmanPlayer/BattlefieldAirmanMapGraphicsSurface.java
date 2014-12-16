@@ -139,28 +139,34 @@ public class BattlefieldAirmanMapGraphicsSurface extends JComponent implements S
 		
 		// This is the diameter of the home run that is displayed
 		int diameter = 10;
-		int hrHomeTeamCount = 0; 
-		int hrAwayTeamCount = 0; 
+		int dataPointCount = 0; 
+		//int hrAwayTeamCount = 0; 
 		
 		for (GPSDataPoint dataPoint: myDataPointList){
 			//Draw a red home run dot at x,y position
-			if (dataPoint.getBatterTeam().equals(HOMETEAM)){
-				g2d.setColor(Color.red);
-				g2d.fillOval(
-						dataPoint.getXPos() - (diameter / 2),
-						dataPoint.getYPos() - (diameter / 2),
-						diameter, diameter);
-				hrHomeTeamCount++;
+			//if (dataPoint.getBatterTeam().equals(HOMETEAM)){
+				//g2d.setColor(Color.red);
+				//g2d.fillOval(
+						//dataPoint.getXPos() - (diameter / 2),
+						//dataPoint.getYPos() - (diameter / 2),
+						//diameter, diameter);
+				//dataPointCount++;
 				
-			}
-			else{
-				g2d.setColor(Color.blue);
-				g2d.fillOval(
-						dataPoint.getXPos() - (diameter / 2),
-						dataPoint.getYPos() - (diameter / 2),
-						diameter, diameter);
-				hrAwayTeamCount++;
-			}
+			//}
+			//else{
+				//g2d.setColor(Color.blue);
+				//g2d.fillOval(
+						//dataPoint.getXPos() - (diameter / 2),
+						//dataPoint.getYPos() - (diameter / 2),
+						//diameter, diameter);
+				//hrAwayTeamCount++;
+			//}
+			g2d.setColor(Color.red);
+			g2d.fillOval(
+					dataPoint.getXPos() - (diameter / 2),
+					dataPoint.getYPos() - (diameter / 2),
+					diameter, diameter);
+			dataPointCount++;
 			//Draw a black ring around home run dot
 			g2d.setColor(Color.black);
 			g2d.drawOval(
@@ -182,18 +188,21 @@ public class BattlefieldAirmanMapGraphicsSurface extends JComponent implements S
 				xpos - (diameter / 2),
 				(ypos += offset1) - (diameter / 2),
 				diameter, diameter);
-		g2d.drawString("- " + HOMETEAM + " " + hrHomeTeamCount, xpos + 8, ypos);	
+		g2d.drawString("- " + HOMETEAM + " " + dataPointCount, xpos + 8, ypos);	
 		
-		g2d.setColor(Color.blue);
-		g2d.fillOval(
-				xpos - (diameter / 2),
-				(ypos += offset1)- (diameter / 2),
-				diameter, diameter);
-		g2d.drawString("- Visitors " + hrAwayTeamCount, xpos + 8, ypos);	
+		//g2d.setColor(Color.blue);
+		//g2d.fillOval(
+				//xpos - (diameter / 2),
+				//(ypos += offset1)- (diameter / 2),
+				//diameter, diameter);
+		//g2d.drawString("- Visitors " + hrAwayTeamCount, xpos + 8, ypos);	
 
 			
 		// If mouse is over home run, then display extra data for 
 		// the home run
+		/*
+		 * We will need this class. Just commenting it out for now until I get the proper CSV file
+		 * and proper parsing finished
 		if (isMouseOverDataPoint()){
 			g2d.setFont(new Font("Serif", Font.BOLD, 20));
 			int x1pos = getWidth() - getWidth()/4;
@@ -217,6 +226,7 @@ public class BattlefieldAirmanMapGraphicsSurface extends JComponent implements S
 			//displayHomeRunInfo(g2d, diameter);
 			notifyHomeRunObserversMouseOver();
 		}
+		*/
 
 		/*
 		 * We probably won't need this for BA..

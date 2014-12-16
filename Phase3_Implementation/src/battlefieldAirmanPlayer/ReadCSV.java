@@ -26,7 +26,7 @@ public class ReadCSV {
 	 *              ArrayList called masterHomeRunList
 	 */
 	public static ArrayList<GPSDataPoint> read() {
-		String csvFile = "./bin/Project2Data.csv";
+		String csvFile = "./bin/BA_gps_data_stream2.csv";
 		BufferedReader br = null;
 		String line = "";
 		String csvSplitBy = ",";

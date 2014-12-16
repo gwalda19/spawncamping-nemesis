@@ -16,7 +16,7 @@ import javax.swing.JComponent;
 
 
 //Class PitchLocationGraphicsSurface
-public class PitchLocationGraphicsSurface extends JComponent implements HomeRunObserver
+public class PitchLocationGraphicsSurface extends JComponent implements DataPointObserver
 {
 	/**
 	 * 
@@ -71,20 +71,20 @@ public class PitchLocationGraphicsSurface extends JComponent implements HomeRunO
 		while (iter.hasNext()) {
 			hr = iter.next();
 			
-			double xpitch = (-1 * hr.getPitchXPos());
-			double zpitch = (hr.getPitchZPos() - 2.5);
-			xoffsetMouseHr = ((xposition + (float)(xpitch * 68)));
-			zoffsetMouseHr = (zposition + (float)(zpitch * -32 ));			
+			//double xpitch = (-1 * hr.getPitchXPos());
+			//double zpitch = (hr.getPitchZPos() - 2.5);
+			//xoffsetMouseHr = ((xposition + (float)(xpitch * 68)));
+			//zoffsetMouseHr = (zposition + (float)(zpitch * -32 ));			
 			
-			if(((x > (xoffsetMouseHr - delta )) && (x < (xoffsetMouseHr + delta))) &&
-			((y > (zoffsetMouseHr /*- delta*/)) && (y < (zoffsetMouseHr + delta + 2
-					)))){
-				mouseOverRepaintCount = 0;
-				callRepaint = true;
-				setMouseOverHomeRun(true);
-				notifyStrikeZoneObserversMouseOver();
-				break;
-			}
+			//if(((x > (xoffsetMouseHr - delta )) && (x < (xoffsetMouseHr + delta))) &&
+			//((y > (zoffsetMouseHr /*- delta*/)) && (y < (zoffsetMouseHr + delta + 2
+					//)))){
+				//mouseOverRepaintCount = 0;
+				//callRepaint = true;
+				//setMouseOverHomeRun(true);
+				//notifyStrikeZoneObserversMouseOver();
+				//break;
+			//}
 			setMouseOverHomeRun(false);
 		}
 		
@@ -162,6 +162,7 @@ public class PitchLocationGraphicsSurface extends JComponent implements HomeRunO
 		g2d.setFont(new Font("Serif", Font.BOLD, 20));			
 		
 		ListIterator<GPSDataPoint> stance_iter = homeRunList.listIterator();
+		/*
 		while (stance_iter.hasNext()) 
 		{
 			homeRun = stance_iter.next();
@@ -176,6 +177,7 @@ public class PitchLocationGraphicsSurface extends JComponent implements HomeRunO
 			}
 			
 		}
+		*/
 		
 		//Determines if all painted home runs are from the same batter stance
 		//If so display left or right handed batter
@@ -208,6 +210,7 @@ public class PitchLocationGraphicsSurface extends JComponent implements HomeRunO
 		//the exact pitch location
 		ListIterator<GPSDataPoint> iter = homeRunList.listIterator();
 		while (iter.hasNext()) {
+			/*
 			homeRun = iter.next();
 			double xpitch = (-1 * homeRun.getPitchXPos());
 			double zpitch = (homeRun.getPitchZPos() - 2.5);
@@ -222,6 +225,7 @@ public class PitchLocationGraphicsSurface extends JComponent implements HomeRunO
 			}
 			
 			g2d.fill(new Ellipse2D.Float((float) (xoffset), (float) ((zoffset)),	diameter, diameter));
+			*/
 		}
 				
 		//If a home run is moused over highlight it in green
