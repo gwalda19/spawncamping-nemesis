@@ -35,7 +35,7 @@ public class BattlefieldAirmanMapGraphicsSurface extends JComponent implements S
 	private ArrayList<GPSDataPoint> myDataPointList;
 	private ArrayList<GPSDataPoint> myDataPointList2;// = new ArrayList<HomeRun>();
 	private ArrayList<DataPointObserver> homeRunObservers = new ArrayList<DataPointObserver>();
-	private GPSDataPoint hr;
+	private GPSDataPoint dp;
 	private String HOMETEAM = "Phillies";
 	private AudioInputStream audioInputStream = null;
 	private Clip clip = null;
@@ -44,7 +44,11 @@ public class BattlefieldAirmanMapGraphicsSurface extends JComponent implements S
 	@SuppressWarnings("unchecked")
 	public BattlefieldAirmanMapGraphicsSurface(ArrayList<GPSDataPoint> dataPointList)
 	{
-		
+		//for (GPSDataPoint dataPoint: myDataPointList){
+			//x1 = dataPoint.getXPos();
+			//y1 = dataPoint.getYPos();
+			//System.out.println("datapoint: " + x1 + ", " + y1);
+		//}
 		myDataPointList = (ArrayList<GPSDataPoint>) dataPointList.clone();
 		myDataPointList2 = dataPointList;
 		this.addMouseMotionListener(new MouseMotionListener()
@@ -71,6 +75,11 @@ public class BattlefieldAirmanMapGraphicsSurface extends JComponent implements S
 					notifyHomeRunObserversMouseRightClicked();
 				}
 				else{
+					if (arg0.getButton() == MouseEvent.BUTTON1) {
+						x1 = arg0.getX();
+						y1 = arg0.getY();
+						System.out.println("Location: " + x1 +", " + y1);
+					}
 					if(isMouseOverDataPoint()){
 						/*
 						if (hr.getBatterTeam().equals("Phillies"))
@@ -87,7 +96,7 @@ public class BattlefieldAirmanMapGraphicsSurface extends JComponent implements S
 						notifyHomeRunObserversMouseClicked();
 					}
 					else{
-						clip.stop();
+						//clip.stop();
 					}
 				}
 			}
@@ -134,7 +143,7 @@ public class BattlefieldAirmanMapGraphicsSurface extends JComponent implements S
 		g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
 		
 		if (field == null)
-			field = getImage("cbp750.jpg");
+			field = getImage("basic_map.jpg");
 		g2d.drawImage(field, 0, 0, 750, 740, this);
 		
 		// This is the diameter of the home run that is displayed
@@ -177,18 +186,18 @@ public class BattlefieldAirmanMapGraphicsSurface extends JComponent implements S
 		
 		
 		
-		int xpos = getWidth() - (getWidth()*29/30);
-		int ypos = getHeight() - (getHeight()*24/25);
-		int offset1 = 15;
-		g2d.setFont(new Font("Serif", Font.BOLD, 14));
-		g2d.drawString("Home Runs Displayed: " + myDataPointList.size(), xpos, ypos);
-		xpos += 5;
-		g2d.setColor(Color.red);
-		g2d.fillOval(
-				xpos - (diameter / 2),
-				(ypos += offset1) - (diameter / 2),
-				diameter, diameter);
-		g2d.drawString("- " + HOMETEAM + " " + dataPointCount, xpos + 8, ypos);	
+		//int xpos = getWidth() - (getWidth()*29/30);
+		//int ypos = getHeight() - (getHeight()*24/25);
+		//int offset1 = 15;
+		//g2d.setFont(new Font("Serif", Font.BOLD, 14));
+		//g2d.drawString("Home Runs Displayed: " + myDataPointList.size(), xpos, ypos);
+		//xpos += 5;
+		//g2d.setColor(Color.red);
+		//g2d.fillOval(
+				//xpos - (diameter / 2),
+				//(ypos += offset1) - (diameter / 2),
+				//diameter, diameter);
+		//g2d.drawString("- " + HOMETEAM + " " + dataPointCount, xpos + 8, ypos);	
 		
 		//g2d.setColor(Color.blue);
 		//g2d.fillOval(
@@ -394,7 +403,7 @@ public class BattlefieldAirmanMapGraphicsSurface extends JComponent implements S
 	 */
 	public void notifyHomeRunObserversMouseClicked(){
 		for (DataPointObserver hrObserver: homeRunObservers){			
-			hrObserver.update(myDataPointList2.indexOf(hr));
+			hrObserver.update(myDataPointList2.indexOf(dp));
 		}
 	}
 
@@ -414,7 +423,7 @@ public class BattlefieldAirmanMapGraphicsSurface extends JComponent implements S
 	 */
 	public void notifyHomeRunObserversMouseOver(){
 		ArrayList<GPSDataPoint> hrList = new ArrayList<GPSDataPoint>();
-		hrList.add(hr);
+		hrList.add(dp);
 		for (DataPointObserver hrObserver: homeRunObservers){
 			hrObserver.update(hrList);
 		}
@@ -506,7 +515,7 @@ public class BattlefieldAirmanMapGraphicsSurface extends JComponent implements S
 	 */
 	@Override
 	public void update(GPSDataPoint hr) {
-		this.hr = hr;
+		this.dp = hr;
 		//mouseOverStrikeZone = true;	
 		repaint();
 	}

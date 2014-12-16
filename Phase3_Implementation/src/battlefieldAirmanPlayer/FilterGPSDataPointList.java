@@ -56,15 +56,12 @@ public class FilterGPSDataPointList {
 				if (Integer.parseInt(filterString[17]) < dataPoint.getDistance()) continue;
 				*/
 				//all criteria match so add homerun to subset arraylist
-				//filteredGPSDataPointList.add(dataPoint);
+				filteredGPSDataPointList.add(dataPoint);
 			}//end for
 		//}//end try 
 		//catch (ParseException e) {
 			  //e.printStackTrace();
-		//}
-
-
-		
+		//}		
 		return filteredGPSDataPointList;
 	}
 }
