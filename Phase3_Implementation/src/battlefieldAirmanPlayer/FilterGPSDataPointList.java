@@ -15,11 +15,11 @@ public class FilterGPSDataPointList {
 	}
 	
 	public static ArrayList<GPSDataPoint> filter(ArrayList<GPSDataPoint> GPSDataPointList, String[] filterString) {
-		try{
-		DateFormat df = new SimpleDateFormat("MM/dd/yyyy");
-		Date startDate = df.parse(filterString[0]);
-		Date endDate = df.parse(filterString[1]);
-		Date homeRunDate;
+		//try{
+		//DateFormat df = new SimpleDateFormat("MM/dd/yyyy");
+		//Date startDate = df.parse(filterString[0]);
+		//Date endDate = df.parse(filterString[1]);
+		//Date homeRunDate;
 		
 		
 		//traverse through GPSDataPointList
@@ -58,10 +58,10 @@ public class FilterGPSDataPointList {
 				//all criteria match so add homerun to subset arraylist
 				//filteredGPSDataPointList.add(dataPoint);
 			}//end for
-		}//end try 
-		catch (ParseException e) {
-			  e.printStackTrace();
-		}
+		//}//end try 
+		//catch (ParseException e) {
+			  //e.printStackTrace();
+		//}
 
 
 		

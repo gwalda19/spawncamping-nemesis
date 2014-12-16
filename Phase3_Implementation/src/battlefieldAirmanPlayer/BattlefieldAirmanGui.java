@@ -370,6 +370,7 @@ public class BattlefieldAirmanGui extends JFrame implements DataPointObserver{
 	}
 
 	//function to display stats from filteredHomeRunArrayList in stats text area
+	/*
 	public void displayFilteredStats() {
 		//jtaStats.setText(Integer.toString(filteredHomeRunArrayList.size()));//DEBUG
 		//iterate through filtered home run array, build string to display in jta
@@ -393,6 +394,7 @@ public class BattlefieldAirmanGui extends JFrame implements DataPointObserver{
 
 		jtaStats.setText(columnsHeader + filteredStats); //display built string in text area
 	}
+	*/
 
 	//function to display only stats of homerun you hover over
 	public void updateStatsTextHoverOn(int hr_array_index){
@@ -400,7 +402,7 @@ public class BattlefieldAirmanGui extends JFrame implements DataPointObserver{
 		backupFilteredHomeRunArrayList.addAll(filteredHomeRunArrayList);//save off filteredarraylist into backup arraylist (backupFilteredHomeRunArrayList)
 		filteredHomeRunArrayList.clear();//clear filteredarraylist
 		filteredHomeRunArrayList.add(backupFilteredHomeRunArrayList.get(hr_array_index));//add element of backuparraylist(hr_array_index) to filteredarraylist
-		displayFilteredStats();//run displayfilteredstats on new filteredarraylist
+		//displayFilteredStats();//run displayfilteredstats on new filteredarraylist
 		filteredHomeRunArrayList.addAll(backupFilteredHomeRunArrayList);//copy backupfilteredarraylist into filteredarraylist
 
 	}
@@ -409,7 +411,7 @@ public class BattlefieldAirmanGui extends JFrame implements DataPointObserver{
 	public void updateStatsTextHoverOff(int hr_array_index){
 		filteredHomeRunArrayList.clear(); //clear filteredarraylist
 		filteredHomeRunArrayList.addAll(backupFilteredHomeRunArrayList);//copy backupfilteredarraylist into filteredarraylist
-		displayFilteredStats();//run displayfilteredstats on new filteredarraylist (which is old filteredarraylist before mousehover)
+		//displayFilteredStats();//run displayfilteredstats on new filteredarraylist (which is old filteredarraylist before mousehover)
 
 	}
 
@@ -439,43 +441,43 @@ public class BattlefieldAirmanGui extends JFrame implements DataPointObserver{
 			DateFormat df = new SimpleDateFormat("MM/dd/yyyy");
 			Date startDate;
 			Date endDate;
-			try{
-			  startDate = df.parse(comboboxStartDate.getSelectedItem().toString());
-			  endDate = df.parse(comboboxEndDate.getSelectedItem().toString());
+			//try{
+			  //startDate = df.parse(comboboxStartDate.getSelectedItem().toString());
+			  //endDate = df.parse(comboboxEndDate.getSelectedItem().toString());
 
-			  if (startDate.compareTo(endDate)>0){
+			  //if (startDate.compareTo(endDate)>0){
 			    //startDate is after endDate
-				  JOptionPane.showMessageDialog(contentPane,
-						    "Start Date occurs after End Date.",
-						    "Date Range Error",
-						    JOptionPane.ERROR_MESSAGE);
-			  } else if(Integer.parseInt(jtfDistanceMax.getText()) < Integer.parseInt(jtfDistanceMin.getText())){
+				  //JOptionPane.showMessageDialog(contentPane,
+						    //"Start Date occurs after End Date.",
+						    //"Date Range Error",
+						    //JOptionPane.ERROR_MESSAGE);
+			  //} else if(Integer.parseInt(jtfDistanceMax.getText()) < Integer.parseInt(jtfDistanceMin.getText())){
 				  //maxdistance is less than min distance
-				  JOptionPane.showMessageDialog(contentPane,
-						    "Distance Max is less than Distance Min.",
-						    "Distance Range Error",
-						    JOptionPane.ERROR_MESSAGE);
-			  }
-			  else {
+				  //JOptionPane.showMessageDialog(contentPane,
+						    //"Distance Max is less than Distance Min.",
+						    //"Distance Range Error",
+						    //JOptionPane.ERROR_MESSAGE);
+			  //}
+			  //else {
 			    //startDate is before endDate
-					filterString[0] = (String) comboboxStartDate.getSelectedItem();
-					filterString[1] = (String) comboboxEndDate.getSelectedItem();
-					filterString[2] = (String) comboboxBatterTeam.getSelectedItem();
-					filterString[3] = (String) comboboxPitcherTeam.getSelectedItem();
-					filterString[4] = (String) comboboxBatter.getSelectedItem();
-					filterString[5] = (String) comboboxPitcher.getSelectedItem();
-					filterString[6] = comboboxInning.getSelectedItem().toString();
-					filterString[7] = (String) comboboxGameOutcome.getSelectedItem();
-					filterString[8] = comboboxOuts.getSelectedItem().toString();
-					filterString[9] = comboboxBalls.getSelectedItem().toString();
-					filterString[10] = comboboxStrikes.getSelectedItem().toString();
-					filterString[11] = (String) comboboxTimeOfDay.getSelectedItem();
-					filterString[12] = comboboxPhilliesScore.getSelectedItem().toString();
-					filterString[13] = comboboxVisitorsScore.getSelectedItem().toString();
-					filterString[14] = comboboxRunsScored.getSelectedItem().toString();
-					filterString[15] = comboboxLRHandedBatter.getSelectedItem().toString();
-					filterString[16] = jtfDistanceMin.getText();
-					filterString[17] = jtfDistanceMax.getText();
+					//filterString[0] = (String) comboboxStartDate.getSelectedItem();
+					//filterString[1] = (String) comboboxEndDate.getSelectedItem();
+					//filterString[2] = (String) comboboxBatterTeam.getSelectedItem();
+					//filterString[3] = (String) comboboxPitcherTeam.getSelectedItem();
+					//filterString[4] = (String) comboboxBatter.getSelectedItem();
+					//filterString[5] = (String) comboboxPitcher.getSelectedItem();
+					//filterString[6] = comboboxInning.getSelectedItem().toString();
+					//filterString[7] = (String) comboboxGameOutcome.getSelectedItem();
+					//filterString[8] = comboboxOuts.getSelectedItem().toString();
+					//filterString[9] = comboboxBalls.getSelectedItem().toString();
+					//filterString[10] = comboboxStrikes.getSelectedItem().toString();
+					//filterString[11] = (String) comboboxTimeOfDay.getSelectedItem();
+					//filterString[12] = comboboxPhilliesScore.getSelectedItem().toString();
+					//filterString[13] = comboboxVisitorsScore.getSelectedItem().toString();
+					//filterString[14] = comboboxRunsScored.getSelectedItem().toString();
+					//filterString[15] = comboboxLRHandedBatter.getSelectedItem().toString();
+					//filterString[16] = jtfDistanceMin.getText();
+					//filterString[17] = jtfDistanceMax.getText();
 
 					//just for debugging, traverse string array and build single string from it
 //					String debug = "";
@@ -494,11 +496,11 @@ public class BattlefieldAirmanGui extends JFrame implements DataPointObserver{
 					locationGraphSurf.updatePitchLocationGraphicsSurface(filteredHomeRunArrayList);
 					//jtaStats.setText(Integer.toString(filteredHomeRunArrayList.size()));//DEBUG
 					//display only stats of filtered home runs in text area
-					displayFilteredStats();
-			}
-			}catch (ParseException e) {
-			  e.printStackTrace();
-			}
+					//displayFilteredStats();
+			//}
+			//}catch (ParseException e) {
+			  //e.printStackTrace();
+			//}
     }
 
 }
