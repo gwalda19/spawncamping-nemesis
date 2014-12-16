@@ -23,9 +23,10 @@ import java.util.ArrayList;
 
 public class BattlefieldAirmanGui extends JFrame implements DataPointObserver {
 	
-
+	private static ArrayList<GPSDataPoint> masterList = new ArrayList<GPSDataPoint>();
 	private JPanel contentPane;
-
+	private final BattlefieldAirmanMapGraphicsSurface baMapGraphicsSurf = new BattlefieldAirmanMapGraphicsSurface(masterList);
+	
 	/**
 	 * Launch the application.
 	 */
@@ -33,7 +34,8 @@ public class BattlefieldAirmanGui extends JFrame implements DataPointObserver {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					BattlefieldAirmanGui frame = new BattlefieldAirmanGui();
+					masterList = ReadCSV.read();
+					BattlefieldAirmanGui frame = new BattlefieldAirmanGui(masterList);
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -45,13 +47,16 @@ public class BattlefieldAirmanGui extends JFrame implements DataPointObserver {
 	/**
 	 * Create the frame.
 	 */
-	public BattlefieldAirmanGui() {
+	public BattlefieldAirmanGui(final ArrayList<GPSDataPoint> masterList) {
+		setTitle("Battlefield Airman Player");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 800, 600);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		contentPane.setLayout(new BorderLayout(0, 0));
 		setContentPane(contentPane);
+		
+		baMapGraphicsSurf.registerHomeRunObserver(this);
 		
 		JSplitPane spTopBottom = new JSplitPane();
 		spTopBottom.setOrientation(JSplitPane.VERTICAL_SPLIT);
@@ -67,8 +72,9 @@ public class BattlefieldAirmanGui extends JFrame implements DataPointObserver {
 		JLabel Label1 = new JLabel("VIDEO WILL GO HERE");
 		pnlVideo.add(Label1);
 		
-		JPanel pnlMap = new JPanel();
+		JScrollPane pnlMap = new JScrollPane();
 		spTopLR.setRightComponent(pnlMap);
+		pnlMap.setViewportView(baMapGraphicsSurf);
 		
 		JLabel lblNewLabel = new JLabel("GPS MAP WILL GO HERE");
 		pnlMap.add(lblNewLabel);
