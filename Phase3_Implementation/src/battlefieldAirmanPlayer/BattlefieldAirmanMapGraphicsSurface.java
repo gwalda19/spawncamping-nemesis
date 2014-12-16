@@ -303,21 +303,21 @@ public class BattlefieldAirmanMapGraphicsSurface extends JComponent implements S
 	public void mouseOverDataPoint(int x, int y){
 		boolean callRepaint = false;
 		int delta = 5;
-		//for (GPSDataPoint hr1: myHomeRunList){ //traverse arraylist
-			//if(((x > (hr1.getXpos() - delta )) && (x < (hr1.getXpos() + delta))) &&
-			//((y > (hr1.getYpos() - delta)) && (y < (hr1.getYpos() + delta)))){
-				//mouseOverRepaintCount = 0;
-				//callRepaint = true;
-				//setMouseOverHomeRun(true);
-				//hr = hr1;
-				//break;
-			//}
-		//setMouseOverHomeRun(false);
-		//}
+		for (GPSDataPoint dp1: myDataPointList){ //traverse arraylist
+			if(((x > (dp1.getXPos() - delta )) && (x < (dp1.getXPos() + delta))) &&
+			((y > (dp1.getYPos() - delta)) && (y < (dp1.getYPos() + delta)))){
+				mouseOverRepaintCount = 0;
+				callRepaint = true;
+				setMouseOverDataPoint(true);
+				dp = dp1;
+				break;
+			}
+		setMouseOverDataPoint(false);
+		}
 		
 		// If this is the first time the mouse is outside the 
-		// mouse over area of a home run repaint the GUI to remove
-		// the data that was displayed next to the home run that the
+		// mouse over area of a data point repaint the GUI to remove
+		// the data that was displayed next to the data point that the
 		// mouse position was on.
 		if(mouseOverRepaintCount == 1){
 		
@@ -371,7 +371,7 @@ public class BattlefieldAirmanMapGraphicsSurface extends JComponent implements S
 	 *Function: setMouseOverHomeRun
 	 *Description: 
 	 */
-	public void setMouseOverHomeRun(boolean mouseOver){
+	public void setMouseOverDataPoint(boolean mouseOver){
 		mouseOverDataPoint = mouseOver;
 	}
 	
