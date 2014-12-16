@@ -25,7 +25,7 @@ import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.border.EmptyBorder;
 
-public class BattleFieldAirmanGui extends JFrame implements HomeRunObserver{
+public class BattlefieldAirmanGui extends JFrame implements DataPointObserver{
 
 	/**
 	 *
@@ -53,7 +53,7 @@ public class BattleFieldAirmanGui extends JFrame implements HomeRunObserver{
 	private static ArrayList<GPSDataPoint> masterList = new ArrayList<GPSDataPoint>();
 	private ArrayList<GPSDataPoint> filteredHomeRunArrayList = new ArrayList<GPSDataPoint>();
 	private final ArrayList<GPSDataPoint> backupFilteredHomeRunArrayList = new ArrayList<GPSDataPoint>();
-	private final HomeRunGraphicsSurface hrGraphicsSurf = new HomeRunGraphicsSurface(masterList);
+	private final BattlefieldAirmanMapGraphicsSurface hrGraphicsSurf = new BattlefieldAirmanMapGraphicsSurface(masterList);
 	private final PitchLocationGraphicsSurface locationGraphSurf = new PitchLocationGraphicsSurface(masterList);
 	private final JTextField jtfDistanceMax;
 	private final JTextField jtfDistanceMin;
@@ -77,8 +77,8 @@ public class BattleFieldAirmanGui extends JFrame implements HomeRunObserver{
 			    //passDialog.setVisible(true);
 
 					//Remove the below line when the above lines are back in.
-					BattleFieldAirmanGui frame = new BattleFieldAirmanGui(masterList);
-			    frame = new BattleFieldAirmanGui(masterList);
+					BattlefieldAirmanGui frame = new BattlefieldAirmanGui(masterList);
+			    frame = new BattlefieldAirmanGui(masterList);
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -90,7 +90,7 @@ public class BattleFieldAirmanGui extends JFrame implements HomeRunObserver{
 	/**
 	 * Create the frame.
 	 */
-	public BattleFieldAirmanGui(final ArrayList<GPSDataPoint> masterList) {
+	public BattlefieldAirmanGui(final ArrayList<GPSDataPoint> masterList) {
 		setTitle("Home Run Stats");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 1200, 900);
@@ -490,7 +490,7 @@ public class BattleFieldAirmanGui extends JFrame implements HomeRunObserver{
 					//call filter method from filter class and pass filter string
 					filteredHomeRunArrayList = FilterGPSDataPointList.filter(masterList, filterString);
 					//update baseball field gui to display only filtered home run locations
-					hrGraphicsSurf.updateHomeRunGraphicsSurface(filteredHomeRunArrayList);
+					hrGraphicsSurf.updateBattlefieldAirmanMapGraphicsSurface(filteredHomeRunArrayList);
 					locationGraphSurf.updatePitchLocationGraphicsSurface(filteredHomeRunArrayList);
 					//jtaStats.setText(Integer.toString(filteredHomeRunArrayList.size()));//DEBUG
 					//display only stats of filtered home runs in text area
