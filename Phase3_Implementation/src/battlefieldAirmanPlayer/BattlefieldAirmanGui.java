@@ -85,9 +85,7 @@ public class BattlefieldAirmanGui extends JFrame implements DataPointObserver {
             public void run() {
                 VideoPlayer.MoviePlayer.initFX(fxPanel);
             }
-	    });
-		
-
+	    });		
 		
 		JScrollPane pnlMap = new JScrollPane();
 		spTopLR.setRightComponent(pnlMap);
