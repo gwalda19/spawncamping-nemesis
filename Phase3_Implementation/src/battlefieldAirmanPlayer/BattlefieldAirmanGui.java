@@ -3,6 +3,9 @@ package battlefieldAirmanPlayer;
 import java.awt.BorderLayout;
 import java.awt.EventQueue;
 
+import javafx.application.Platform;
+import javafx.embed.swing.JFXPanel;
+
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
@@ -15,9 +18,12 @@ import javax.swing.JButton;
 import javax.swing.JList;
 import javax.swing.AbstractListModel;
 import javax.swing.JScrollPane;
+
 import java.awt.GridLayout;
+
 import javax.swing.event.ChangeListener;
 import javax.swing.event.ChangeEvent;
+
 import java.util.ArrayList;
 
 
@@ -70,7 +76,16 @@ public class BattlefieldAirmanGui extends JFrame implements DataPointObserver {
 		spTopLR.setLeftComponent(pnlVideo);
 		
 		JLabel Label1 = new JLabel("VIDEO WILL GO HERE");
-		pnlVideo.add(Label1);
+		//pnlVideo.add(Label1);
+        final JFXPanel fxPanel = new JFXPanel();
+		pnlVideo.add(fxPanel);
+
+		Platform.runLater(new Runnable() {
+            @Override
+            public void run() {
+                VideoPlayer.MoviePlayer.initFX(fxPanel);
+            }
+	    });		
 		
 		JScrollPane pnlMap = new JScrollPane();
 		spTopLR.setRightComponent(pnlMap);
