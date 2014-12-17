@@ -22,6 +22,11 @@ import javax.swing.JSplitPane;
 import javax.swing.border.EmptyBorder;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
+import javax.swing.event.ListSelectionListener;
+import javax.swing.event.ListSelectionEvent;
+
 
 import ReviewerInformation.ReviewerDatabase;
 import ReviewerInformation.ReviewerInformation;
@@ -29,12 +34,16 @@ import ReviewerInformation.ReviewerInformation;
 
 public class BattlefieldAirmanGui extends JFrame implements DataPointObserver {
 
-  private static JFrame                  frame;
+	private static JFrame frame;
 	private static ArrayList<GPSDataPoint> masterList = new ArrayList<GPSDataPoint>();
 	private ArrayList<GPSDataPoint> filteredHomeRunArrayList = new ArrayList<GPSDataPoint>();
 	private JPanel contentPane;
 	private final BattlefieldAirmanMapGraphicsSurface baMapGraphicsSurf = new BattlefieldAirmanMapGraphicsSurface(masterList);
+	private JComboBox cmbCamera;
+	private JComboBox cmbAudio;
+	private JList listGPSData;
 
+	
   private static PassWordDialog          pass_dialog_box;
   private static ReviewerDatabase        reviewer_database;
   private static ReviewerInformation     reviewer_logged_in;
@@ -147,26 +156,56 @@ public class BattlefieldAirmanGui extends JFrame implements DataPointObserver {
 		pnlControls.setLayout(new GridLayout(1, 6, 0, 0));
 
 		JButton btnRewind = new JButton("|<<");
+		btnRewind.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				System.out.println("|<< pressed");
+			}
+		});
 		pnlControls.add(btnRewind);
 
 		JButton btnPlayPause = new JButton(">/II");
+		btnPlayPause.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				System.out.println(">/II pressed");
+			}
+		});
 		pnlControls.add(btnPlayPause);
 
 		JButton btnFastForward = new JButton(">>|");
+		btnFastForward.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				System.out.println(">>| pressed");
+			}
+		});
 		pnlControls.add(btnFastForward);
 
-		JComboBox cmbCamera = new JComboBox();
+		cmbCamera = new JComboBox();
+		cmbCamera.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				System.out.println("Camera for: " + cmbCamera.getSelectedItem()  + " selected.");
+			}
+		});
 		cmbCamera.setModel(new DefaultComboBoxModel(new String[] {"Camera - Choose One", "Sean Fast", "David Gwalthney", "David Shanline", "Michael Norris", "Emmanuel Bonilla"}));
 		pnlControls.add(cmbCamera);
 
-		JComboBox cmbAudio = new JComboBox();
+		cmbAudio = new JComboBox();
+		cmbAudio.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				System.out.println("Audio for: " + cmbAudio.getSelectedItem()  + " selected.");
+			}
+		});
 		cmbAudio.setModel(new DefaultComboBoxModel(new String[] {"Audio - Choose One", "Sean Fast", "David Gwalthney", "David Shanline", "Michael Norris", "Emmanuel Bonilla"}));
 		pnlControls.add(cmbAudio);
 
 		JScrollPane scrollPane = new JScrollPane();
 		pnlControls.add(scrollPane);
 
-		JList listGPSData = new JList();
+		listGPSData = new JList();
+		listGPSData.addListSelectionListener(new ListSelectionListener() {
+			public void valueChanged(ListSelectionEvent arg0) {
+				System.out.println("GPS Data for: " + listGPSData.getSelectedValuesList() + " selected.");
+			}
+		});
 		scrollPane.setViewportView(listGPSData);
 		listGPSData.setVisibleRowCount(3);
 		listGPSData.setModel(new AbstractListModel() {
