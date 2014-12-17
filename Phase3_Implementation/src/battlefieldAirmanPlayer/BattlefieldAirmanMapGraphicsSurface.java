@@ -228,7 +228,7 @@ public class BattlefieldAirmanMapGraphicsSurface extends JComponent implements S
 			g2d.drawString("Box Number: " + dp.getBoxId(), x1pos, y1pos);
 			g2d.drawString("Latitude: " + dp.getLatitude(), x1pos, y1pos += offset);
 			g2d.drawString("Longitude: " + dp.getLongitude(), x1pos, y1pos += offset);
-			//g2d.drawString("Home Run Distance: " + Integer.toString(dp.getDistance()) + " ft", x1pos, y1pos += offset);
+			g2d.drawString("Data Point Number: " + dp.getPointId(), x1pos, y1pos += offset);
 			
 			//displayHomeRunInfo(g2d, diameter);
 			notifyDataPointObserversMouseOver();

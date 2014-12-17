@@ -30,6 +30,7 @@ import java.util.ArrayList;
 public class BattlefieldAirmanGui extends JFrame implements DataPointObserver {
 	
 	private static ArrayList<GPSDataPoint> masterList = new ArrayList<GPSDataPoint>();
+	private ArrayList<GPSDataPoint> filteredHomeRunArrayList = new ArrayList<GPSDataPoint>();
 	private JPanel contentPane;
 	private final BattlefieldAirmanMapGraphicsSurface baMapGraphicsSurf = new BattlefieldAirmanMapGraphicsSurface(masterList);
 	
@@ -151,8 +152,9 @@ public class BattlefieldAirmanGui extends JFrame implements DataPointObserver {
 		sliderProgress.addChangeListener(new ChangeListener() {
 			public void stateChanged(ChangeEvent arg0) {
 			    JSlider source = (JSlider)arg0.getSource();
-			    if (!source.getValueIsAdjusting()) {
+			    if (source.getValueIsAdjusting()) {
 					System.out.println(((JSlider) arg0.getSource()).getValue());
+					filter(((JSlider) arg0.getSource()).getValue());
 			    }
 			}
 		});
@@ -174,6 +176,21 @@ public class BattlefieldAirmanGui extends JFrame implements DataPointObserver {
 		// TODO Auto-generated method stub
 
 	}
+	
+  public void filter(int endPoint){
+			//display filtered stats in text area when Filter button is pressed
+			filteredHomeRunArrayList.clear();
+			//try{
+				filteredHomeRunArrayList = FilterGPSDataPointList.filter(masterList, endPoint);
+				//update baseball field gui to display only filtered home run locations
+				baMapGraphicsSurf.updateBattlefieldAirmanMapGraphicsSurface(filteredHomeRunArrayList);
+				//jtaStats.setText(Integer.toString(filteredHomeRunArrayList.size()));//DEBUG
+				//display only stats of filtered home runs in text area
+				//displayFilteredStats();
+			//}catch (ParseException e) {
+			 // e.printStackTrace();
+			//}
+  }
 
 
 }
