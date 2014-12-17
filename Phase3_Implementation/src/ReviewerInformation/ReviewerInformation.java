@@ -46,11 +46,6 @@ public class ReviewerInformation implements ReviewerInformationProvider
     this.username = username;
   }
 
-  /**
-   *  Retrieve the reviewer's username.
-   *
-   *  @return String (reviewer's username)
-   */
   @Override
   public String getUsername()
   {
@@ -87,11 +82,6 @@ public class ReviewerInformation implements ReviewerInformationProvider
     this.name = name;
   }
 
-  /**
-   *  Retrieve the reviewer's name.
-   *
-   *  @return String (reviewer's name)
-   */
   @Override
   public String getName()
   {
@@ -108,11 +98,6 @@ public class ReviewerInformation implements ReviewerInformationProvider
     path_to_picture = path;
   }
 
-  /**
-   *  Retrieve the reviewer's picture path.
-   *
-   *  @return String (reviewer's picture path)
-   */
   @Override
   public String getPicturePath()
   {
@@ -129,11 +114,6 @@ public class ReviewerInformation implements ReviewerInformationProvider
     this.department = department;
   }
 
-  /**
-   *  Retrieve the reviewer's department.
-   *
-   *  @return String (reviewer's department)
-   */
   @Override
   public String getDepartment()
   {
@@ -150,11 +130,6 @@ public class ReviewerInformation implements ReviewerInformationProvider
     this.rank = rank;
   }
 
-  /**
-   *  Retrieve the reviewer's rank.
-   *
-   *  @return String (reviewer's rank)
-   */
   @Override
   public String getRank()
   {
