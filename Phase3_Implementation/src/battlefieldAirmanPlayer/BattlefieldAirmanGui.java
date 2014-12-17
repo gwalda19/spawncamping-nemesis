@@ -3,11 +3,19 @@ package battlefieldAirmanPlayer;
 import java.awt.BorderLayout;
 import java.awt.EventQueue;
 import java.awt.GridLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 
 import javafx.application.Platform;
 import javafx.embed.swing.JFXPanel;
 
+import javax.sound.midi.InvalidMidiDataException;
+import javax.sound.midi.MidiUnavailableException;
+import javax.sound.sampled.LineUnavailableException;
+import javax.sound.sampled.UnsupportedAudioFileException;
 import javax.swing.AbstractListModel;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JButton;
@@ -22,14 +30,12 @@ import javax.swing.JSplitPane;
 import javax.swing.border.EmptyBorder;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
-import java.awt.event.ActionListener;
-import java.awt.event.ActionEvent;
-import javax.swing.event.ListSelectionListener;
 import javax.swing.event.ListSelectionEvent;
-
+import javax.swing.event.ListSelectionListener;
 
 import ReviewerInformation.ReviewerDatabase;
 import ReviewerInformation.ReviewerInformation;
+import battlefieldAirmanPlayer.audio.SoundPlayer;
 
 
 public class BattlefieldAirmanGui extends JFrame implements DataPointObserver {
@@ -48,6 +54,9 @@ public class BattlefieldAirmanGui extends JFrame implements DataPointObserver {
   private static ReviewerDatabase        reviewer_database;
   private static ReviewerInformation     reviewer_logged_in;
   private static Boolean    not_first_time = new Boolean(false);
+  private SoundPlayer player;
+  private File file;
+  private int selectedAudioIndex;
 
 	/**
 	 * Launch the application.
@@ -167,6 +176,23 @@ public class BattlefieldAirmanGui extends JFrame implements DataPointObserver {
 		btnPlayPause.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				System.out.println(">/II pressed");
+				try {
+					file = new File("0"+selectedAudioIndex+".wav");   // This is the file we'll be playing
+					if( player== null) {
+						player = new SoundPlayer(file, false);
+					}
+					player.play.doClick();
+				} catch (IOException e) {
+					e.printStackTrace();
+				} catch (UnsupportedAudioFileException e) {
+					e.printStackTrace();
+				} catch (LineUnavailableException e) {
+					e.printStackTrace();
+				} catch (MidiUnavailableException e) {
+					e.printStackTrace();
+				} catch (InvalidMidiDataException e) {
+					e.printStackTrace();
+				}
 			}
 		});
 		pnlControls.add(btnPlayPause);
@@ -191,6 +217,22 @@ public class BattlefieldAirmanGui extends JFrame implements DataPointObserver {
 		cmbAudio = new JComboBox();
 		cmbAudio.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
+				selectedAudioIndex =  cmbAudio.getSelectedIndex();
+				file = new File("0"+selectedAudioIndex+".wav");   // This is the file we'll be playing
+				try {
+					player = new SoundPlayer(file, false);
+				} catch (IOException e) {
+					e.printStackTrace();
+				} catch (UnsupportedAudioFileException e) {
+					e.printStackTrace();
+				} catch (LineUnavailableException e) {
+					e.printStackTrace();
+				} catch (MidiUnavailableException e) {
+					e.printStackTrace();
+				} catch (InvalidMidiDataException e) {
+					e.printStackTrace();
+				}
+				System.out.println("Audio for: " + selectedAudioIndex  + " selected.");
 				System.out.println("Audio for: " + cmbAudio.getSelectedItem()  + " selected.");
 			}
 		});
