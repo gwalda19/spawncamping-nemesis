@@ -210,7 +210,7 @@ public class SoundPlayer extends JComponent {
     // An internal method that updates the progress bar.
     // The Timer object calls it 10 times a second.
     // If the sound has finished, it resets to the beginning
-    void tick( ) {
+    public void tick( ) {
         if (midi && sequencer.isRunning( )) {
             audioPosition = (int)sequencer.getTickPosition( );
             progress.setValue(audioPosition);

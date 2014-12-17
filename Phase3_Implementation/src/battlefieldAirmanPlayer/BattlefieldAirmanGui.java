@@ -145,8 +145,8 @@ protected double percent;
 		JLabel Label1 = new JLabel("VIDEO WILL GO HERE");
 		//pnlVideo.add(Label1);
         final JFXPanel fxPanel = new JFXPanel();
-		pnlVideo.add(fxPanel);//TODO FIXME mvn
-        pnlVideo.add(player);
+		pnlVideo.add(fxPanel);
+        //pnlVideo.add(player);//TODO FIXME mvn
 
 		Platform.runLater(new Runnable() {
             @Override
