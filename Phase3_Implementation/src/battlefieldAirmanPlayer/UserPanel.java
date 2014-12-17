@@ -13,11 +13,26 @@ import javax.swing.JSplitPane;
 
 import ReviewerInformation.ReviewerInformationProvider;
 
-
+/**
+ *  UserPanel
+ *
+ *  Creates a Java Panel that will hold the battle field
+ *  reviewers information that is logged in. It shows his
+ *  information and his "profile" picture.
+ *
+ *  @author David Gwalthney
+ *
+ */
 public class UserPanel extends JPanel
 {
   private static final long serialVersionUID = 1L;
 
+  /**
+   *  UserPanel constructor.
+   *  Creates the panel to hold the reviewers information.
+   *
+   *  @param reviewer_information
+   */
   public UserPanel(ReviewerInformationProvider reviewer_information)
   {
     setLayout(new BorderLayout());
