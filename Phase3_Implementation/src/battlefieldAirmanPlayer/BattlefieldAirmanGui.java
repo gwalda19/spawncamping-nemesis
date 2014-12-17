@@ -85,6 +85,7 @@ public class BattlefieldAirmanGui extends JFrame implements DataPointObserver {
 	 * Create the frame.
 	 */
 	public BattlefieldAirmanGui(final ArrayList<GPSDataPoint> masterList) {
+		setExtendedState(frame.MAXIMIZED_BOTH);//TODO:SF TEST
 		setTitle("Battlefield Airman Player");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 1100, 650);
@@ -96,6 +97,7 @@ public class BattlefieldAirmanGui extends JFrame implements DataPointObserver {
 		baMapGraphicsSurf.registerDataPointObserver(this);
 
 		JSplitPane spTopBottom = new JSplitPane();
+		spTopBottom.setResizeWeight(1.0);//TODO:SF TEST
 		spTopBottom.setOrientation(JSplitPane.VERTICAL_SPLIT);
 		contentPane.add(spTopBottom, BorderLayout.CENTER);
 
