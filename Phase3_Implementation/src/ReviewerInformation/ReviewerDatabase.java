@@ -7,10 +7,30 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 
+/**
+ *  ReviewerDatabase
+ *
+ *  Database to hold all the reviewers. The list of reviewers get
+ *  read in from an encrypted csv file. The csv file is encrypted,
+ *  so that no one can know who has access and what there password
+ *  is.
+ *
+ *  Decryption and storage is done here.
+ *
+ *  @author David Gwalthney
+ *
+ */
 public class ReviewerDatabase implements ReviewerDatabaseProvider
 {
   private final ArrayList<ReviewerInformation> battlefield_data_reviewer;
 
+  /**
+   *  ReviewerDatabase constructor
+   *
+   *  Reads the encrypted CSV file and sets up the reviewer database.
+   *
+   *  @param file_name
+   */
   public ReviewerDatabase(String file_name)
   {
     battlefield_data_reviewer = new ArrayList<ReviewerInformation>();
@@ -140,6 +160,12 @@ public class ReviewerDatabase implements ReviewerDatabaseProvider
     }
   }
 
+  /**
+   *  Function to decrypt the values of the CSV file.
+   *
+   *  @param input
+   *  @return String
+   */
   public static String rot13(String input)
   {
     StringBuilder sb = new StringBuilder();
