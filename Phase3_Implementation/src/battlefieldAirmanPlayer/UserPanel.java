@@ -23,6 +23,7 @@ public class UserPanel extends JPanel
     setLayout(new BorderLayout());
 
     JSplitPane split_pane = new JSplitPane();
+    //split_pane.setOrientation(JSplitPane.HORIZONTAL_SPLIT);
     split_pane.setOrientation(JSplitPane.HORIZONTAL_SPLIT);
     add(split_pane, BorderLayout.CENTER);
 

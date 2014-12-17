@@ -6,8 +6,6 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
-import java.util.ArrayList;
-import java.util.Arrays;
 
 import javax.swing.JButton;
 import javax.swing.JDialog;
@@ -17,6 +15,8 @@ import javax.swing.JPanel;
 import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
+
+import ReviewerInformation.ReviewerDatabaseProvider;
 
 
 public class PassWordDialog extends JDialog
@@ -32,14 +32,19 @@ public class PassWordDialog extends JDialog
 
   private final JLabel         jlblStatus   = new JLabel(" ");
 
+  private final ReviewerDatabaseProvider reviewer_database;
+  private String user_logged_in = new String("");
+
   public PassWordDialog()
   {
-    this(null, true);
+    this(null, true, null);
   }
 
-  public PassWordDialog(final JFrame parent, boolean modal)
+  public PassWordDialog(final JFrame parent, boolean modal, ReviewerDatabaseProvider reviewer_database)
   {
     super(parent, modal);
+
+    this.reviewer_database = reviewer_database;
 
     JPanel p3 = new JPanel(new GridLayout(2, 1));
     p3.add(jlblUsername);
@@ -71,7 +76,6 @@ public class PassWordDialog extends JDialog
     setDefaultCloseOperation(DISPOSE_ON_CLOSE);
 
     setTitle("Battlefield Airmen Data Login");
-    setUpUsernameAndPasswords();
 
     addWindowListener(new WindowAdapter()
     {
@@ -111,22 +115,6 @@ public class PassWordDialog extends JDialog
     });
   }
 
-  // Username/Passwords
-  private ArrayList<String> usernames;
-  private ArrayList<String> passwords;
-
-  private void setUpUsernameAndPasswords()
-  {
-    usernames = new ArrayList<String>();
-    passwords = new ArrayList<String>();
-
-    usernames.add("gwalthney");
-    usernames.add("fast");
-
-    passwords.add("david");
-    passwords.add("sean");
-  }
-
   private Boolean validateCredentials()
   {
     Boolean valid   = new Boolean(false);
@@ -144,15 +132,35 @@ public class PassWordDialog extends JDialog
     else
     {
       // Validate the input
-      if( usernames.contains(username) )
+      if( reviewer_database.isValidReviewer(username) )
       {
-        int index = usernames.indexOf(username);
-
-        valid = Arrays.equals(passwords.get(index).toCharArray(), password );
+        user_logged_in = username;
+        valid = reviewer_database.isValidPassword(username, password);
       }
     }
 
+    if( valid )
+    {
+      user_logged_in = username;
+      reviewer_database.setLoggedInUser(username);
+    }
+
     return valid;
+  }
+
+  public void activateLock(final JFrame parent)
+  {
+    setTitle("Battlefield Airmen Data Unlock");
+
+    jtfUsername.setText(user_logged_in);
+    jtfUsername.setEnabled(false);
+
+    jpfPassword.setText(null);
+
+    jbtOk.setText("Unlock");
+
+    parent.setVisible(false);
+    setVisible(true);
   }
 
 }
