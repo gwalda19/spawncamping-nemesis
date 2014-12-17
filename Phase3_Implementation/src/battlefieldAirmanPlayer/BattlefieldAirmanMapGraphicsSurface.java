@@ -148,34 +148,37 @@ public class BattlefieldAirmanMapGraphicsSurface extends JComponent implements S
 		
 		// This is the diameter of the home run that is displayed
 		int diameter = 10;
-		int dataPointCount = 0; 
+		int stream1DataPointCount = 0;
+		int stream2DataPointCount = 0;
+		int stream3DataPointCount = 0;
 		//int hrAwayTeamCount = 0; 
 		
 		for (GPSDataPoint dataPoint: myDataPointList){
 			//Draw a red home run dot at x,y position
-			//if (dataPoint.getBatterTeam().equals(HOMETEAM)){
-				//g2d.setColor(Color.red);
-				//g2d.fillOval(
-						//dataPoint.getXPos() - (diameter / 2),
-						//dataPoint.getYPos() - (diameter / 2),
-						//diameter, diameter);
-				//dataPointCount++;
-				
-			//}
-			//else{
-				//g2d.setColor(Color.blue);
-				//g2d.fillOval(
-						//dataPoint.getXPos() - (diameter / 2),
-						//dataPoint.getYPos() - (diameter / 2),
-						//diameter, diameter);
-				//hrAwayTeamCount++;
-			//}
-			g2d.setColor(Color.red);
-			g2d.fillOval(
-					dataPoint.getXPos() - (diameter / 2),
-					dataPoint.getYPos() - (diameter / 2),
-					diameter, diameter);
-			dataPointCount++;
+			if (dataPoint.getBoxId() == 1){
+				g2d.setColor(Color.red);
+				g2d.fillOval(
+						dataPoint.getXPos() - (diameter / 2),
+						dataPoint.getYPos() - (diameter / 2),
+						diameter, diameter);
+				stream1DataPointCount++;	
+			}
+			else if (dataPoint.getBoxId() == 2){
+				g2d.setColor(Color.blue);
+				g2d.fillOval(
+						dataPoint.getXPos() - (diameter / 2),
+						dataPoint.getYPos() - (diameter / 2),
+						diameter, diameter);
+				stream2DataPointCount++;
+			}
+			else if (dataPoint.getBoxId() == 3){
+					g2d.setColor(Color.green);
+					g2d.fillOval(
+							dataPoint.getXPos() - (diameter / 2),
+							dataPoint.getYPos() - (diameter / 2),
+							diameter, diameter);
+					stream3DataPointCount++;
+			}
 			//Draw a black ring around home run dot
 			g2d.setColor(Color.black);
 			g2d.drawOval(
