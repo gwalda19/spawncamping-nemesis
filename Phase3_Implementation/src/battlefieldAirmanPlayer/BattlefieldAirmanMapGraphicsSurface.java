@@ -20,7 +20,7 @@ import javax.sound.sampled.UnsupportedAudioFileException;
 import javax.swing.JComponent;
 
 
-public class BattlefieldAirmanMapGraphicsSurface extends JComponent implements StrikeZoneObserver
+public class BattlefieldAirmanMapGraphicsSurface extends JComponent
 {
 	/**
 	 * 
@@ -36,7 +36,6 @@ public class BattlefieldAirmanMapGraphicsSurface extends JComponent implements S
 	private ArrayList<GPSDataPoint> myDataPointList2;// = new ArrayList<HomeRun>();
 	private ArrayList<DataPointObserver> dataPointObservers = new ArrayList<DataPointObserver>();
 	private GPSDataPoint dp;
-	private String HOMETEAM = "Phillies";
 	private AudioInputStream audioInputStream = null;
 	private Clip clip = null;
 //	List<Integer> l2;// = new ArrayList<Integer>(l1); //A new arrayList.
@@ -505,34 +504,6 @@ public class BattlefieldAirmanMapGraphicsSurface extends JComponent implements S
 		}
 	}//End initializeVisitorSound
 		
-	/**
-	 *Function: update
-	 *Description: This function called by the 
-	 *   PitchLocationGraphicsSurface to highlight
-	 *   the home run on the field that matches the 
-	 *   moused over home run in the pitch location 
-	 *   window 
-	 */
-	@Override
-	public void update(GPSDataPoint hr) {
-		this.dp = hr;
-		//mouseOverStrikeZone = true;	
-		repaint();
-	}
-
-
-	/**
-	 *Function: update
-	 *Description: This function called by the 
-	 *   PitchLocationGraphicsSurface to remove the highlighted
-	 *   home run on the field that matched the home that was
-	 *   previously moused over  
-	 */
-	@Override
-	public void update() {
-		//mouseOverStrikeZone = false;
-		repaint();
-	}
 }//End class HomeRunGraphicsSurface
 	
 
