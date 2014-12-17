@@ -36,12 +36,12 @@ public class ReviewerDatabase implements ReviewerDatabaseProvider
         // split on space (,)
         String[] values = line.trim().split(",");
 
-        String username   = values[0];
-        String password   = values[1];
-        String name       = values[2];
-        String rank       = values[3];
-        String department = values[4];
-        String pic_path   = values[5];
+        String username   = rot13(values[0]);
+        String password   = rot13(values[1]);
+        String name       = rot13(values[2]);
+        String rank       = rot13(values[3]);
+        String department = rot13(values[4]);
+        String pic_path   = rot13(values[5]);
 
         // create reviewer object to store values
         ReviewerInformation reviewer = new ReviewerInformation();
@@ -81,6 +81,7 @@ public class ReviewerDatabase implements ReviewerDatabaseProvider
     }
   }
 
+  @Override
   public ReviewerInformation getReviewerInformation()
   {
     for( ReviewerInformation item: battlefield_data_reviewer )
@@ -94,6 +95,7 @@ public class ReviewerDatabase implements ReviewerDatabaseProvider
     return null;
   }
 
+  @Override
   public Boolean isValidReviewer(String reviewer)
   {
     Boolean valid = new Boolean(false);
@@ -109,6 +111,7 @@ public class ReviewerDatabase implements ReviewerDatabaseProvider
     return valid;
   }
 
+  @Override
   public Boolean isValidPassword(String reviewer, char[] password)
   {
     Boolean valid = new Boolean(false);
@@ -125,6 +128,7 @@ public class ReviewerDatabase implements ReviewerDatabaseProvider
     return valid;
   }
 
+  @Override
   public void setLoggedInUser(String reviewer)
   {
     for( ReviewerInformation item: battlefield_data_reviewer )
@@ -135,4 +139,25 @@ public class ReviewerDatabase implements ReviewerDatabaseProvider
       }
     }
   }
+
+  public static String rot13(String input)
+  {
+    StringBuilder sb = new StringBuilder();
+    for (int i = 0; i < input.length(); i++)
+    {
+      char c = input.charAt(i);
+      if (c >= 'a' && c <= 'm')
+        c += 13;
+      else if (c >= 'A' && c <= 'M')
+        c += 13;
+      else if (c >= 'n' && c <= 'z')
+        c -= 13;
+      else if (c >= 'N' && c <= 'Z')
+        c -= 13;
+      sb.append(c);
+    }
+    return sb.toString();
+  }
+
+
 }
