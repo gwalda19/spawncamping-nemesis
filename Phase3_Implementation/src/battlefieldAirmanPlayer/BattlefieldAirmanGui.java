@@ -54,9 +54,10 @@ public class BattlefieldAirmanGui extends JFrame implements DataPointObserver {
   private static ReviewerDatabase        reviewer_database;
   private static ReviewerInformation     reviewer_logged_in;
   private static Boolean    not_first_time = new Boolean(false);
-  private SoundPlayer player;
+  private static SoundPlayer player;
   private File file;
   private int selectedAudioIndex;
+protected double percent;
 
 	/**
 	 * Launch the application.
@@ -119,6 +120,21 @@ public class BattlefieldAirmanGui extends JFrame implements DataPointObserver {
 		spTopBottom.setOrientation(JSplitPane.VERTICAL_SPLIT);
 		contentPane.add(spTopBottom, BorderLayout.CENTER);
 
+		// initialize SoundPlayer
+		file = new File("0"+1+".wav");   // This is the file we'll be playing
+		try {
+			player = new SoundPlayer(file, false);
+		} catch (IOException e1) {
+			e1.printStackTrace();
+		} catch (UnsupportedAudioFileException e1) {
+			e1.printStackTrace();
+		} catch (LineUnavailableException e1) {
+			e1.printStackTrace();
+		} catch (MidiUnavailableException e1) {
+			e1.printStackTrace();
+		} catch (InvalidMidiDataException e1) {
+			e1.printStackTrace();
+		}
 		JSplitPane spTopLR = new JSplitPane();
 		spTopLR.setResizeWeight(0.5);
 		spTopBottom.setLeftComponent(spTopLR);
@@ -129,7 +145,8 @@ public class BattlefieldAirmanGui extends JFrame implements DataPointObserver {
 		JLabel Label1 = new JLabel("VIDEO WILL GO HERE");
 		//pnlVideo.add(Label1);
         final JFXPanel fxPanel = new JFXPanel();
-		pnlVideo.add(fxPanel);
+		pnlVideo.add(fxPanel);//TODO FIXME mvn
+        pnlVideo.add(player);
 
 		Platform.runLater(new Runnable() {
             @Override
@@ -173,31 +190,16 @@ public class BattlefieldAirmanGui extends JFrame implements DataPointObserver {
 		pnlControls.add(btnRewind);
 
 		JButton btnPlayPause = new JButton(">/II");
+		btnPlayPause = player.play;//TODO FIXME mvn
 		btnPlayPause.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				System.out.println(">/II pressed");
-				try {
-					file = new File("0"+selectedAudioIndex+".wav");   // This is the file we'll be playing
-					if( player== null) {
-						player = new SoundPlayer(file, false);
-					}
-					player.play.doClick();
-				} catch (IOException e) {
-					e.printStackTrace();
-				} catch (UnsupportedAudioFileException e) {
-					e.printStackTrace();
-				} catch (LineUnavailableException e) {
-					e.printStackTrace();
-				} catch (MidiUnavailableException e) {
-					e.printStackTrace();
-				} catch (InvalidMidiDataException e) {
-					e.printStackTrace();
-				}
 			}
 		});
 		pnlControls.add(btnPlayPause);
 
 		JButton btnFastForward = new JButton(">>|");
+		//btnFastForward = player.play;//TODO FIXME mvn
 		btnFastForward.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				System.out.println(">>| pressed");
@@ -234,6 +236,7 @@ public class BattlefieldAirmanGui extends JFrame implements DataPointObserver {
 				}
 				System.out.println("Audio for: " + selectedAudioIndex  + " selected.");
 				System.out.println("Audio for: " + cmbAudio.getSelectedItem()  + " selected.");
+				System.out.println("Audio for file: " + file);
 			}
 		});
 		cmbAudio.setModel(new DefaultComboBoxModel(new String[] {"Audio - Choose One", "Sean Fast", "David Gwalthney", "David Shanline", "Michael Norris", "Emmanuel Bonilla"}));
@@ -263,6 +266,7 @@ public class BattlefieldAirmanGui extends JFrame implements DataPointObserver {
 		});
 
 		JSlider sliderProgress = new JSlider();
+		sliderProgress = player.progress;//FIXME TODO mvn
 		sliderProgress.setPaintLabels(true);
 		sliderProgress.setPaintTicks(true);
 		spSliderButtonsTB.setLeftComponent(sliderProgress);
@@ -270,9 +274,13 @@ public class BattlefieldAirmanGui extends JFrame implements DataPointObserver {
 			@Override
       public void stateChanged(ChangeEvent arg0) {
 			    JSlider source = (JSlider)arg0.getSource();
-			    if (source.getValueIsAdjusting()) {
+			    if (!source.getValueIsAdjusting()) {
 					System.out.println(((JSlider) arg0.getSource()).getValue());
-					filter(((JSlider) arg0.getSource()).getValue());
+
+					double value = source.getValue();
+					double max = source.getMaximum();
+					percent = (value/max)*100.0;
+					filter((int)percent);
 			    }
 			}
 		});
