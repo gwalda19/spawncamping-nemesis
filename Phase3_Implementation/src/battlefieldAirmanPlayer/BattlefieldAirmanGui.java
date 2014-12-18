@@ -38,7 +38,20 @@ import ReviewerInformation.ReviewerDatabase;
 import ReviewerInformation.ReviewerInformation;
 import battlefieldAirmanPlayer.audio.SoundPlayer;
 
-
+/**
+ *  BattlefieldAirmanGui
+ *
+ *  This is the main class for the battlefield airman playback software.
+ *  This class generates the main window and the associated panels that are
+ *  housed in the JFrame.
+ *
+ *  @author Emmanuel Bonilla
+ *  @author Sean Fast
+ *  @author David Gwalthney
+ *  @author Michael Norris
+ *  @author David Shanline
+ *
+ */
 public class BattlefieldAirmanGui extends JFrame implements DataPointObserver {
 
 	private static JFrame frame;
@@ -50,7 +63,7 @@ public class BattlefieldAirmanGui extends JFrame implements DataPointObserver {
 	private JComboBox cmbAudio;
 	private JList listGPSData;
 
-	
+
   private static PassWordDialog          pass_dialog_box;
   private static ReviewerDatabase        reviewer_database;
   private static ReviewerInformation     reviewer_logged_in;
@@ -58,12 +71,12 @@ public class BattlefieldAirmanGui extends JFrame implements DataPointObserver {
   private static SoundPlayer player;
   private File file;
   private int selectedAudioIndex;
-protected double percent;
-private JSlider sliderProgress;
-private JSplitPane spSliderButtonsTB;
+  protected double percent;
+  private JSlider sliderProgress;
+  private JSplitPane spSliderButtonsTB;
 
 	/**
-	 * Launch the application.
+	 *  Launch the application.
 	 */
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
@@ -185,7 +198,8 @@ private JSplitPane spSliderButtonsTB;
 
 		JButton btnRewind = new JButton("|<<");
 		btnRewind.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
+			@Override
+      public void actionPerformed(ActionEvent arg0) {
 				System.out.println("|<< pressed");
 			}
 		});
@@ -193,7 +207,8 @@ private JSplitPane spSliderButtonsTB;
 
 		JButton btnPlayPause = new JButton(">/II");
 		btnPlayPause.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
+			@Override
+      public void actionPerformed(ActionEvent arg0) {
 				System.out.println(">/II pressed");
 				MediaPlayer mp = MoviePlayer.getMediaPlayer();
 				MoviePlayer.playMovie(mp);
@@ -203,9 +218,9 @@ private JSplitPane spSliderButtonsTB;
 				else {
 					MoviePlayer.pauseMovie(mp);
 				}
-				
+
 				if (player.playing) {
-					player.stop(); 
+					player.stop();
 				} else {
 					player.play();
 				}
@@ -225,15 +240,16 @@ private JSplitPane spSliderButtonsTB;
 						}
 					}
 				});
-				
-				
+
+
 			}
 		});
 		pnlControls.add(btnPlayPause);
 
 		JButton btnFastForward = new JButton(">>|");
 		btnFastForward.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
+			@Override
+      public void actionPerformed(ActionEvent arg0) {
 				System.out.println(">>| pressed");
 			}
 		});
@@ -241,7 +257,8 @@ private JSplitPane spSliderButtonsTB;
 
 		cmbCamera = new JComboBox();
 		cmbCamera.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
+			@Override
+      public void actionPerformed(ActionEvent arg0) {
 				System.out.println("Camera for: " + cmbCamera.getSelectedItem()  + " selected.");
 			}
 		});
@@ -250,7 +267,8 @@ private JSplitPane spSliderButtonsTB;
 
 		cmbAudio = new JComboBox();
 		cmbAudio.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
+			@Override
+      public void actionPerformed(ActionEvent arg0) {
 				selectedAudioIndex =  cmbAudio.getSelectedIndex();
 				player.stop();
 				file = new File("0"+selectedAudioIndex+".wav");   // This is the file we'll be playing
@@ -277,7 +295,8 @@ private JSplitPane spSliderButtonsTB;
 
 		listGPSData = new JList();
 		listGPSData.addListSelectionListener(new ListSelectionListener() {
-			public void valueChanged(ListSelectionEvent arg0) {
+			@Override
+      public void valueChanged(ListSelectionEvent arg0) {
 				System.out.println("GPS Data for: " + listGPSData.getSelectedValuesList() + " selected.");
 			}
 		});
@@ -346,6 +365,11 @@ private JSplitPane spSliderButtonsTB;
 			//}
   }
 
+  /**
+   *  After the timer has expired it will call this function.
+   *  This will lock the screen and make the user re-enter his
+   *  password to continue.
+   */
   private static void checkForTimeout()
   {
     if( not_first_time )

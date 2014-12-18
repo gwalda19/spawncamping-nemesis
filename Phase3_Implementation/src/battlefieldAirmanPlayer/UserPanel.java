@@ -38,7 +38,6 @@ public class UserPanel extends JPanel
     setLayout(new BorderLayout());
 
     JSplitPane split_pane = new JSplitPane();
-    //split_pane.setOrientation(JSplitPane.HORIZONTAL_SPLIT);
     split_pane.setOrientation(JSplitPane.HORIZONTAL_SPLIT);
     add(split_pane, BorderLayout.CENTER);
 
@@ -60,13 +59,10 @@ public class UserPanel extends JPanel
     }
     catch (IOException e)
     {
-      // TODO Auto-generated catch block
       e.printStackTrace();
     }
 
     JLabel picLabel = new JLabel(new ImageIcon(myPicture));
-    //picLabel.setPreferredSize(getMinimumSize());
-    //picLabel.setPreferredSize(new Dimension(1, 1));
 
     left.setLayout(new BorderLayout());
     left.add(picLabel, BorderLayout.CENTER);
