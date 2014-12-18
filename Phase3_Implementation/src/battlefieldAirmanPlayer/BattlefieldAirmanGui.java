@@ -72,7 +72,7 @@ public class BattlefieldAirmanGui extends JFrame implements DataPointObserver {
   private File file;
   private int selectedAudioIndex;
   protected double percent;
-  private JSlider sliderProgress;
+  public static JSlider sliderProgress;
   private JSplitPane spSliderButtonsTB;
 
 	/**
@@ -235,7 +235,6 @@ public class BattlefieldAirmanGui extends JFrame implements DataPointObserver {
 						if (!source.getValueIsAdjusting()) {
 							double value = source.getValue();
 							double max = source.getMaximum();
-							System.out.println("DEBUG song pos:"+value/1000 +"/"+max/1000);
 							percent = (value/max)*100.0;
 							filter((int)percent);
 						}

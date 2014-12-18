@@ -1,40 +1,22 @@
 package battlefieldAirmanPlayer;
 
-import java.awt.BorderLayout;
-import java.awt.Dimension;
-
-import javax.swing.JFrame;
-import javax.swing.SwingUtilities;
-import javax.swing.WindowConstants;
-
-import javafx.application.Application;
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue; 
 import javafx.application.Platform;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.embed.swing.JFXPanel;
 import javafx.event.EventHandler;
 import javafx.scene.Group;
 import javafx.scene.Scene;
-import javafx.scene.control.Label;
 import javafx.scene.control.Slider;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.HBox;
-import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 import javafx.scene.media.MediaView;
 import javafx.scene.paint.Color;
-import javafx.scene.text.Font;
-import javafx.scene.text.Text;
-import javafx.stage.Stage;
 import javafx.util.Duration;
 
-
-
-import javafx.scene.media.MediaPlayer;
-import javafx.scene.media.MediaView;
+import javax.swing.JFrame;
 
 
 //public class MoviePlayer extends Application {
@@ -152,9 +134,11 @@ public class MoviePlayer {
 			@Override
 			public void changed(ObservableValue<? extends Duration> observableValue, Duration duration, Duration current) {
 				slider.setValue(current.toSeconds());
-				//System.out.println("Video slider value"+slider.getValue());
+				double value = BattlefieldAirmanGui.sliderProgress.getValue();
+				double currentTime = value/1000;
+				slider.setValue(currentTime);
+				player.setStartTime(new Duration(value));
 				System.out.println("Video slider value"+ player.getStatus());
-				//System.out.println("Slider from battleField" + battlefieldAirmanPlayer.BattlefieldAirmanGui.s);
 			}
 		});
 
