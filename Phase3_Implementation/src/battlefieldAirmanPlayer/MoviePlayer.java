@@ -137,7 +137,7 @@ public class MoviePlayer {
 				double value = BattlefieldAirmanGui.sliderProgress.getValue();
 				double currentTime = value/1000;
 				slider.setValue(currentTime);
-				player.setStartTime(new Duration(value));
+				//player.setStartTime(new Duration(value));// TODO FIXME set video to slider
 				System.out.println("Video slider value"+ player.getStatus());
 			}
 		});
