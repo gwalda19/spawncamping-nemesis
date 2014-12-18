@@ -24,7 +24,8 @@ import javax.swing.JFrame;
 //public class MoviePlayer extends Application {
 public class MoviePlayer {
 	private static boolean stopRequested = false;
-  private final static File file = new File("BattlefieldVideo/SampleSoldierVideo.mp4");
+  private final static File file = new File("BattlefieldVideo/Xbox_360_gameplay_footage.mp4");
+  //private final static File file = new File("BattlefieldVideo/SampleSoldierVideo.mp4");
   //private final static File file = new File("BattlefieldVideo/Medal_of_Honor_Xbox_360_Gameplay_footage.mp4");
   //private final static File file = new File("BattlefieldVideo/Sintel.mp4");
   private final static String MEDIA_URL = file.toURI().toString();
