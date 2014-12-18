@@ -197,6 +197,12 @@ private JSplitPane spSliderButtonsTB;
 				System.out.println(">/II pressed");
 				MediaPlayer mp = MoviePlayer.getMediaPlayer();
 				MoviePlayer.playMovie(mp);
+				if (mp.getStatus() != MediaPlayer.Status.PLAYING) {
+					MoviePlayer.playMovie(mp);
+				}
+				else {
+					MoviePlayer.pauseMovie(mp);
+				}
 				
 				if (player.playing) {
 					player.stop(); 
@@ -219,6 +225,8 @@ private JSplitPane spSliderButtonsTB;
 						}
 					}
 				});
+				
+				
 			}
 		});
 		pnlControls.add(btnPlayPause);

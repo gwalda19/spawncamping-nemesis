@@ -152,7 +152,8 @@ public class MoviePlayer {
 			@Override
 			public void changed(ObservableValue<? extends Duration> observableValue, Duration duration, Duration current) {
 				slider.setValue(current.toSeconds());
-				System.out.println("Video slider value"+slider.getValue());
+				//System.out.println("Video slider value"+slider.getValue());
+				System.out.println("Video slider value"+ player.getStatus());
 				//System.out.println("Slider from battleField" + battlefieldAirmanPlayer.BattlefieldAirmanGui.s);
 			}
 		});
