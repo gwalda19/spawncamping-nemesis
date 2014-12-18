@@ -196,7 +196,12 @@ protected double percent;
 			public void actionPerformed(ActionEvent arg0) {
 				System.out.println(">/II pressed");
 				MediaPlayer mp = MoviePlayer.getMediaPlayer();
-				MoviePlayer.playMovie(mp);
+				if (mp.getStatus() != MediaPlayer.Status.PLAYING) {
+					MoviePlayer.playMovie(mp);
+				}
+				else {
+					MoviePlayer.pauseMovie(mp);
+				}				
 			}
 		});
 		pnlControls.add(btnPlayPause);
