@@ -11,6 +11,7 @@ import java.util.ArrayList;
 
 import javafx.application.Platform;
 import javafx.embed.swing.JFXPanel;
+import javafx.scene.media.MediaPlayer;
 
 import javax.sound.midi.InvalidMidiDataException;
 import javax.sound.midi.MidiUnavailableException;
@@ -151,7 +152,7 @@ protected double percent;
 		Platform.runLater(new Runnable() {
             @Override
             public void run() {
-                VideoPlayer.MoviePlayer.initFX(fxPanel);
+                MoviePlayer.initFX(fxPanel);
             }
 	    });
 
@@ -194,6 +195,8 @@ protected double percent;
 		btnPlayPause.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				System.out.println(">/II pressed");
+				MediaPlayer mp = MoviePlayer.getMediaPlayer();
+				MoviePlayer.playMovie(mp);
 			}
 		});
 		pnlControls.add(btnPlayPause);
