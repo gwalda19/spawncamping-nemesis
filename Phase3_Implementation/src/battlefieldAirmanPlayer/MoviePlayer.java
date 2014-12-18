@@ -24,13 +24,17 @@ import javax.swing.JFrame;
 //public class MoviePlayer extends Application {
 public class MoviePlayer {
 	private static boolean stopRequested = false;
-  private final static File file = new File("BattlefieldVideo/Medal_of_Honor_Xbox_360_Gameplay_footage.mp4");
+  private final static File file = new File("BattlefieldVideo/SampleSoldierVideo.mp4");
+  //private final static File file = new File("BattlefieldVideo/Medal_of_Honor_Xbox_360_Gameplay_footage.mp4");
   //private final static File file = new File("BattlefieldVideo/Sintel.mp4");
   private final static String MEDIA_URL = file.toURI().toString();
 	static Media media = new Media(MEDIA_URL);
 	static final MediaPlayer player = new MediaPlayer(media);
 	//MediaView view = new MediaView(player);
 	static public MediaPlayer globalPlayer = player;
+	static int videoWidth = player.getMedia().getWidth();
+    static int videoHeight = player.getMedia().getHeight();
+
 
 
 /*
@@ -74,7 +78,7 @@ public class MoviePlayer {
 
         root.getChildren().add(text);
 */
-		//Media media = new Media("file:///Users/ebonilla/Downloads/Sintel.mp4");
+		//Media media = new Media("file:///Users/ebonilla/Downloads/SampleSoldierVideo.mp4");
 		//final MediaPlayer player = new MediaPlayer(media);
 		MediaView view = new MediaView(player);
 
@@ -84,7 +88,9 @@ public class MoviePlayer {
 
 		root.getChildren().add(view);
 		root.getChildren().add(vbox);
-		Scene scene = new Scene(root, 1295, 545, Color.BLACK);
+
+		//Scene scene = new Scene(root, videoWidth, videoHeight, Color.BLACK);
+		Scene scene = new Scene(root, 650, 650, Color.BLACK);
 		//stage.setScene(scene);
 		//stage.show();
 
@@ -145,7 +151,7 @@ public class MoviePlayer {
 				double currentTime = value/1000;
 				slider.setValue(currentTime);
 				//player.setStartTime(new Duration(value));// TODO FIXME set video to slider
-				System.out.println("Video slider value"+ player.getStatus());
+				//System.out.println("Video slider value"+ player.getStatus());
 			}
 		});
 
