@@ -328,6 +328,11 @@ public class BattlefieldAirmanGui extends JFrame implements DataPointObserver {
 					double max = source.getMaximum();
 					percent = (value/max)*100.0;
 					filter((int)percent);
+			    } else {
+			    	double value = source.getValue();
+					double max = source.getMaximum();
+					percent = (value/max)*100.0;
+					filter((int)percent);
 			    }
 			}
 		});
