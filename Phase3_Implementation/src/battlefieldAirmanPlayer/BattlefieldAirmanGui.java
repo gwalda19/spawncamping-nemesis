@@ -59,6 +59,8 @@ public class BattlefieldAirmanGui extends JFrame implements DataPointObserver {
   private File file;
   private int selectedAudioIndex;
 protected double percent;
+private JSlider sliderProgress;
+private JSplitPane spSliderButtonsTB;
 
 	/**
 	 * Launch the application.
@@ -147,7 +149,6 @@ protected double percent;
 		//pnlVideo.add(Label1);
         final JFXPanel fxPanel = new JFXPanel();
 		pnlVideo.add(fxPanel);
-        //pnlVideo.add(player);//TODO FIXME mvn
 
 		Platform.runLater(new Runnable() {
             @Override
@@ -173,7 +174,7 @@ protected double percent;
 		//JLabel lblNewLabel_1 = new JLabel("LOGGED IN USER INFO GOES HERE");
 		//pnlLoggedInUser.add(lblNewLabel_1, BorderLayout.SOUTH);
 
-		JSplitPane spSliderButtonsTB = new JSplitPane();
+		spSliderButtonsTB = new JSplitPane();
 		spSliderButtonsTB.setOrientation(JSplitPane.VERTICAL_SPLIT);
 		spSliderButtonsTB.setResizeWeight(0.5);
 		spBottomTB.setRightComponent(spSliderButtonsTB);
@@ -191,18 +192,38 @@ protected double percent;
 		pnlControls.add(btnRewind);
 
 		JButton btnPlayPause = new JButton(">/II");
-		btnPlayPause = player.play;//TODO FIXME mvn
 		btnPlayPause.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				System.out.println(">/II pressed");
 				MediaPlayer mp = MoviePlayer.getMediaPlayer();
 				MoviePlayer.playMovie(mp);
+				
+				if (player.playing) {
+					player.stop(); 
+				} else {
+					player.play();
+				}
+				sliderProgress = player.progress;
+				sliderProgress.setPaintLabels(true);
+				sliderProgress.setPaintTicks(true);
+				spSliderButtonsTB.setLeftComponent(sliderProgress);
+				sliderProgress.addChangeListener(new ChangeListener() {
+					@Override
+					public void stateChanged(ChangeEvent arg0) {
+						JSlider source = (JSlider)arg0.getSource();
+						if (!source.getValueIsAdjusting()) {
+							double value = source.getValue();
+							double max = source.getMaximum();
+							percent = (value/max)*100.0;
+							filter((int)percent);
+						}
+					}
+				});
 			}
 		});
 		pnlControls.add(btnPlayPause);
 
 		JButton btnFastForward = new JButton(">>|");
-		//btnFastForward = player.play;//TODO FIXME mvn
 		btnFastForward.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				System.out.println(">>| pressed");
@@ -223,6 +244,7 @@ protected double percent;
 		cmbAudio.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				selectedAudioIndex =  cmbAudio.getSelectedIndex();
+				player.stop();
 				file = new File("0"+selectedAudioIndex+".wav");   // This is the file we'll be playing
 				try {
 					player = new SoundPlayer(file, false);
@@ -237,9 +259,6 @@ protected double percent;
 				} catch (InvalidMidiDataException e) {
 					e.printStackTrace();
 				}
-				System.out.println("Audio for: " + selectedAudioIndex  + " selected.");
-				System.out.println("Audio for: " + cmbAudio.getSelectedItem()  + " selected.");
-				System.out.println("Audio for file: " + file);
 			}
 		});
 		cmbAudio.setModel(new DefaultComboBoxModel(new String[] {"Audio - Choose One", "Sean Fast", "David Gwalthney", "David Shanline", "Michael Norris", "Emmanuel Bonilla"}));
@@ -268,8 +287,8 @@ protected double percent;
 			}
 		});
 
-		JSlider sliderProgress = new JSlider();
-		sliderProgress = player.progress;//FIXME TODO mvn
+		//JSlider sliderProgress = new JSlider();
+		sliderProgress = player.progress;
 		sliderProgress.setPaintLabels(true);
 		sliderProgress.setPaintTicks(true);
 		spSliderButtonsTB.setLeftComponent(sliderProgress);
@@ -278,8 +297,6 @@ protected double percent;
       public void stateChanged(ChangeEvent arg0) {
 			    JSlider source = (JSlider)arg0.getSource();
 			    if (!source.getValueIsAdjusting()) {
-					System.out.println(((JSlider) arg0.getSource()).getValue());
-
 					double value = source.getValue();
 					double max = source.getMaximum();
 					percent = (value/max)*100.0;

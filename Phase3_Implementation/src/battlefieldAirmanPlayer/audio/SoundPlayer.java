@@ -26,7 +26,7 @@ public class SoundPlayer extends JComponent {
     Sequence sequence;       // The contents of a MIDI file
     Sequencer sequencer;     // We play MIDI Sequences with a Sequencer
     Clip clip;               // Contents of a sampled audio file
-    boolean playing = false; // whether the sound is currently playing
+    public boolean playing = false; // whether the sound is currently playing
 
     // Length and position of the sound are measured in milliseconds for 
     // sampled sounds and MIDI "ticks" for MIDI sounds
