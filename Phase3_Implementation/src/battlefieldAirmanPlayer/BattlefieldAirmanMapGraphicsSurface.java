@@ -12,6 +12,7 @@ import java.awt.event.MouseMotionListener;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
+
 import javax.sound.sampled.AudioInputStream;
 import javax.sound.sampled.AudioSystem;
 import javax.sound.sampled.Clip;
@@ -19,13 +20,22 @@ import javax.sound.sampled.LineUnavailableException;
 import javax.sound.sampled.UnsupportedAudioFileException;
 import javax.swing.JComponent;
 
-
+/**
+ *  BattlefieldAirmanMapGraphicsSurface
+ *
+ *  Draws the GPS location and the battlefield airman positions.
+ *
+ *  @author Emmanuel Bonilla
+ *  @author Sean Fast
+ *  @author David Gwalthney
+ *  @author Michael Norris
+ *  @author David Shanline
+ *
+ */
 public class BattlefieldAirmanMapGraphicsSurface extends JComponent
 {
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 1L;	
+
+	private static final long serialVersionUID = 1L;
 	private int x1 = 0;
 	private int y1 = 0;
 	private int mouseOverRepaintCount = 0;
@@ -34,7 +44,7 @@ public class BattlefieldAirmanMapGraphicsSurface extends JComponent
 	//private boolean mouseOverStrikeZone = false;
 	private ArrayList<GPSDataPoint> myDataPointList;
 	private ArrayList<GPSDataPoint> myDataPointList2;// = new ArrayList<HomeRun>();
-	private ArrayList<DataPointObserver> dataPointObservers = new ArrayList<DataPointObserver>();
+	private final ArrayList<DataPointObserver> dataPointObservers = new ArrayList<DataPointObserver>();
 	private GPSDataPoint dp;
 	private AudioInputStream audioInputStream = null;
 	private Clip clip = null;
@@ -52,13 +62,15 @@ public class BattlefieldAirmanMapGraphicsSurface extends JComponent
 		myDataPointList2 = dataPointList;
 		this.addMouseMotionListener(new MouseMotionListener()
 		{
-			public void mouseDragged(MouseEvent e)
+			@Override
+      public void mouseDragged(MouseEvent e)
 			{
 				//x2 = e.getX();
 				//y2 = e.getY();
 			}
-			
-			public void mouseMoved(MouseEvent e)
+
+			@Override
+      public void mouseMoved(MouseEvent e)
 			{
 				x1 = e.getX();
 				y1 = e.getY();
@@ -70,7 +82,7 @@ public class BattlefieldAirmanMapGraphicsSurface extends JComponent
 
 			@Override
 			public void mouseClicked(MouseEvent arg0) {
-				if (arg0.getButton() == MouseEvent.BUTTON3) { 
+				if (arg0.getButton() == MouseEvent.BUTTON3) {
 					notifyDataPointObserversMouseRightClicked();
 				}
 				else{
@@ -103,55 +115,54 @@ public class BattlefieldAirmanMapGraphicsSurface extends JComponent
 			@Override
 			public void mouseEntered(MouseEvent arg0) {
 				// TODO Auto-generated method stub
-				
+
 			}
 
 			@Override
 			public void mouseExited(MouseEvent arg0) {
 				// TODO Auto-generated method stub
-				
+
 			}
 
 			@Override
 			public void mousePressed(MouseEvent arg0) {
 				// TODO Auto-generated method stub
-				
+
 			}
 
 			@Override
 			public void mouseReleased(MouseEvent arg0) {
 				// TODO Auto-generated method stub
-				
+
 			}
-			
+
 		});
-		
+
 	//	initializeSound();
 	}//End HomeRunGraphicsSurface constructor
-	
-	
+
+
 	/**
-	 *Function: paint
-	 *Description: paint gets called when ever there is a resizing of the screen
-	 *			   This function displays the image of Citizen's Bank Park (CBP)
-	 *             and paints the home runs on the display based on inputs from the GUI
+	 *  Function: paint
+	 *  Description: paint gets called when ever there is a resizing of the screen
 	 */
-	public void paint(Graphics g)
+	@Override
+  public void paint(Graphics g)
 	{
-		Graphics2D g2d = (Graphics2D) g;	
+		Graphics2D g2d = (Graphics2D) g;
 		g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
-		
+
 		if (map == null)
 			map = getImage("basic_map.jpg");
 		g2d.drawImage(map, 0, 0, 750, 740, this);
-		
+
 		// This is the diameter of the home run that is displayed
 		int diameter = 10;
 		int stream1DataPointCount = 0;
 		int stream2DataPointCount = 0;
 		int stream3DataPointCount = 0;
-		//int hrAwayTeamCount = 0; 
-		
+		//int hrAwayTeamCount = 0;
+
 		for (GPSDataPoint dataPoint: myDataPointList){
 			//Draw a red home run dot at x,y position
 			if (dataPoint.getBoxId() == 1){
@@ -160,7 +171,7 @@ public class BattlefieldAirmanMapGraphicsSurface extends JComponent
 						dataPoint.getXPos() - (diameter / 2),
 						dataPoint.getYPos() - (diameter / 2),
 						diameter, diameter);
-				stream1DataPointCount++;	
+				stream1DataPointCount++;
 			}
 			else if (dataPoint.getBoxId() == 2){
 				g2d.setColor(Color.blue);
@@ -184,10 +195,10 @@ public class BattlefieldAirmanMapGraphicsSurface extends JComponent
 					dataPoint.getXPos() - (diameter / 2),
 					dataPoint.getYPos() - (diameter / 2),
 					diameter, diameter);
-		}//End for	
-		
-		
-		
+		}//End for
+
+
+
 		//int xpos = getWidth() - (getWidth()*29/30);
 		//int ypos = getHeight() - (getHeight()*24/25);
 		//int offset1 = 15;
@@ -199,17 +210,17 @@ public class BattlefieldAirmanMapGraphicsSurface extends JComponent
 				//xpos - (diameter / 2),
 				//(ypos += offset1) - (diameter / 2),
 				//diameter, diameter);
-		//g2d.drawString("- " + HOMETEAM + " " + dataPointCount, xpos + 8, ypos);	
-		
+		//g2d.drawString("- " + HOMETEAM + " " + dataPointCount, xpos + 8, ypos);
+
 		//g2d.setColor(Color.blue);
 		//g2d.fillOval(
 				//xpos - (diameter / 2),
 				//(ypos += offset1)- (diameter / 2),
 				//diameter, diameter);
-		//g2d.drawString("- Visitors " + hrAwayTeamCount, xpos + 8, ypos);	
+		//g2d.drawString("- Visitors " + hrAwayTeamCount, xpos + 8, ypos);
 
-			
-		// If mouse is over home run, then display extra data for 
+
+		// If mouse is over home run, then display extra data for
 		// the home run
 
 		if (isMouseOverDataPoint()){
@@ -225,13 +236,13 @@ public class BattlefieldAirmanMapGraphicsSurface extends JComponent
 			g2d.setColor(Color.black);
 			//g2d.drawString(dp.getBoxId(), dp.getXPos() + 15, dp.getYPos() + 5);
 			//g2d.drawString(Integer.toString(dp.getDistance()) + " ft", dp.getXPos() + 15, dp.getYPos() + 20);
-			
+
 			g2d.setFont(new Font("Serif", Font.BOLD, 14));
 			g2d.drawString("Box Number: " + dp.getBoxId(), x1pos, y1pos);
 			g2d.drawString("Latitude: " + dp.getLatitude(), x1pos, y1pos += offset);
 			g2d.drawString("Longitude: " + dp.getLongitude(), x1pos, y1pos += offset);
 			g2d.drawString("Data Point Number: " + dp.getPointId(), x1pos, y1pos += offset);
-			
+
 			//displayHomeRunInfo(g2d, diameter);
 			notifyDataPointObserversMouseOver();
 		}
@@ -251,7 +262,7 @@ public class BattlefieldAirmanMapGraphicsSurface extends JComponent
 			g2d.setColor(Color.black);
 			g2d.drawString(hr.getBatterLastName(), hr.getXpos() + 15, hr.getYpos() + 5);
 			g2d.drawString(Integer.toString(hr.getDistance()) + " ft", hr.getXpos() + 15, hr.getYpos() + 20);
-			
+
 			g2d.setFont(new Font("Serif", Font.BOLD, 14));
 			g2d.drawString("Home Run Number: " + hr.getHomeRunId(), x1pos, y1pos);
 			g2d.drawString("Batter: " + hr.getBatterFirstName() +" " + hr.getBatterLastName(), x1pos, y1pos += offset);
@@ -269,9 +280,9 @@ public class BattlefieldAirmanMapGraphicsSurface extends JComponent
 					diameter, diameter);
 		}
 		*/
-		//displayHomeRunInfo(g2d, diameter);		
+		//displayHomeRunInfo(g2d, diameter);
 	}//End paint
-	
+
 	/*
 		public void displayHomeRunInfo(Graphics2D g2d, int diameter){
 			g2d.setFont(new Font("Serif", Font.BOLD, 20));
@@ -286,16 +297,16 @@ public class BattlefieldAirmanMapGraphicsSurface extends JComponent
 			g2d.setColor(Color.black);
 			g2d.drawString(hr.getBatterLastName(), hr.getXpos() + 15, hr.getYpos() + 5);
 			g2d.drawString(Integer.toString(hr.getDistance()) + " ft", hr.getXpos() + 15, hr.getYpos() + 20);
-			
+
 			g2d.setFont(new Font("Serif", Font.BOLD, 14));
 			g2d.drawString("Home Run Number: " + hr.getHomeRunId(), x1pos, y1pos);
 			g2d.drawString("Batter: " + hr.getBatterFirstName() +" " + hr.getBatterLastName(), x1pos, y1pos += offset);
 			g2d.drawString("Team: " + hr.getBatterTeam(), x1pos, y1pos += offset);
 			g2d.drawString("Home Run Distance: " + Integer.toString(hr.getDistance()) + " ft", x1pos, y1pos += offset);
-			
+
 		}
 	*/
-		
+
 	/**
 	 *Function to determine if the mouse is over a home run.
 	 */
@@ -313,13 +324,13 @@ public class BattlefieldAirmanMapGraphicsSurface extends JComponent
 			}
 		setMouseOverDataPoint(false);
 		}
-		
-		// If this is the first time the mouse is outside the 
+
+		// If this is the first time the mouse is outside the
 		// mouse over area of a data point repaint the GUI to remove
 		// the data that was displayed next to the data point that the
 		// mouse position was on.
 		if(mouseOverRepaintCount == 1){
-		
+
 			repaint();
 			notifyDataPointObservers();
 		}
@@ -328,17 +339,17 @@ public class BattlefieldAirmanMapGraphicsSurface extends JComponent
 		// are not repainted on every mouse movement update.
 		mouseOverRepaintCount++;
 
-		// If the mouse is over a home run repaint the image and 
+		// If the mouse is over a home run repaint the image and
 		// home run data along with the added data the corresponds
 		// to the home run the mouse is on.
 		if (callRepaint){
 			repaint();
 		}
-	}	
-	
+	}
+
 	/**
 	 *Function: getImage
-	 *Description: 
+	 *Description:
 	 */
 	public Image getImage(String path)
 	{
@@ -354,10 +365,10 @@ public class BattlefieldAirmanMapGraphicsSurface extends JComponent
 		}
 		return tempImage;
 	}
-	
+
 	/**
 	 *Function: updateHomeRunGraphicsSurface
-	 *Description: 
+	 *Description:
 	 */
 	@SuppressWarnings("unchecked")
 	public void updateBattlefieldAirmanMapGraphicsSurface(ArrayList<GPSDataPoint> dataPointList){
@@ -365,18 +376,18 @@ public class BattlefieldAirmanMapGraphicsSurface extends JComponent
 		myDataPointList = (ArrayList<GPSDataPoint>) dataPointList.clone();
 		repaint();
 	}
-	
+
 	/**
 	 *Function: setMouseOverHomeRun
-	 *Description: 
+	 *Description:
 	 */
 	public void setMouseOverDataPoint(boolean mouseOver){
 		mouseOverDataPoint = mouseOver;
 	}
-	
+
 	/**
 	 *Function: isMouseOverHomeRun
-	 *Description: 
+	 *Description:
 	 */
 	public boolean isMouseOverDataPoint(){
 		if(mouseOverDataPoint){
@@ -389,36 +400,36 @@ public class BattlefieldAirmanMapGraphicsSurface extends JComponent
 
 	/**
 	 *Function: registerHomeRunObserver
-	 *Description: 
+	 *Description:
 	 */
 	public void registerDataPointObserver(DataPointObserver dpObserver){
 		dataPointObservers.add(dpObserver);
 	}
-	
+
 
 	/**
 	 *Function: notifyHomeRunObserversMouseClick
-	 *Description: 
+	 *Description:
 	 */
 	public void notifyHomeRunObserversMouseClicked(){
-		for (DataPointObserver hrObserver: dataPointObservers){			
+		for (DataPointObserver hrObserver: dataPointObservers){
 			hrObserver.update(myDataPointList2.indexOf(dp));
 		}
 	}
 
 	/**
 	 *Function: notifyHomeRunObserversMouseClick
-	 *Description: 
+	 *Description:
 	 */
 	public void notifyDataPointObserversMouseRightClicked(){
-		for (DataPointObserver dpObserver: dataPointObservers){			
+		for (DataPointObserver dpObserver: dataPointObservers){
 			dpObserver.update();
 		}
 	}
 
 	/**
 	 *Function: notifyHomeRunObserversMouseOver
-	 *Description: 
+	 *Description:
 	 */
 	public void notifyDataPointObserversMouseOver(){
 		ArrayList<GPSDataPoint> dpList = new ArrayList<GPSDataPoint>();
@@ -430,7 +441,7 @@ public class BattlefieldAirmanMapGraphicsSurface extends JComponent
 
 	/**
 	 *Function: notifyHomeRunObservers
-	 *Description: 
+	 *Description:
 	 */
 	public void notifyDataPointObservers(){
 		ArrayList<GPSDataPoint> dpList = new ArrayList<GPSDataPoint>();
@@ -439,14 +450,14 @@ public class BattlefieldAirmanMapGraphicsSurface extends JComponent
 			dpObserver.update(dpList);
 		}
 	}
-	
+
 	/**
 	 *Function: initializePhilliesSound
-	 *Description: 
+	 *Description:
 	 */
 	public void initializePhilliesSound(){
-		try {	
-			String soundName = "baseball.wav";    
+		try {
+			String soundName = "baseball.wav";
 			audioInputStream = AudioSystem.getAudioInputStream(new File(soundName).getAbsoluteFile());
 		} catch (UnsupportedAudioFileException e) {
 			// TODO Auto-generated catch block
@@ -468,17 +479,17 @@ public class BattlefieldAirmanMapGraphicsSurface extends JComponent
 			e.printStackTrace();
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
-			e.printStackTrace();		
+			e.printStackTrace();
 		}
 	}//End intitializePhilliesSound
-	
+
 	/**
 	 *Function: initializeVisitorSound
-	 *Description: 
+	 *Description:
 	 */
 	public void initializeVisitorSound(){
-		try {	
-			String soundName = "baseball_boo.wav";    
+		try {
+			String soundName = "baseball_boo.wav";
 			audioInputStream = AudioSystem.getAudioInputStream(new File(soundName).getAbsoluteFile());
 		} catch (UnsupportedAudioFileException e) {
 			// TODO Auto-generated catch block
@@ -500,10 +511,10 @@ public class BattlefieldAirmanMapGraphicsSurface extends JComponent
 			e.printStackTrace();
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
-			e.printStackTrace();		
+			e.printStackTrace();
 		}
 	}//End initializeVisitorSound
-		
+
 }//End class HomeRunGraphicsSurface
-	
+
 
