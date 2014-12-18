@@ -1,5 +1,7 @@
 package battlefieldAirmanPlayer;
 
+import java.io.File;
+
 import javafx.application.Platform;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
@@ -22,7 +24,9 @@ import javax.swing.JFrame;
 //public class MoviePlayer extends Application {
 public class MoviePlayer {
 	private static boolean stopRequested = false;
-	static Media media = new Media("file:///Users/ebonilla/Downloads/Sintel.mp4");
+  private final static File file = new File("BattlefieldVideo/Sintel.mp4");
+  private final static String MEDIA_URL = file.toURI().toString();
+	static Media media = new Media(MEDIA_URL);
 	static final MediaPlayer player = new MediaPlayer(media);
 	//MediaView view = new MediaView(player);
 	static public MediaPlayer globalPlayer = player;
@@ -32,7 +36,7 @@ public class MoviePlayer {
 	public static void main (String[] args) {
 		launch(args);
 	}
-*/	
+*/
     private static void initAndShowGUI() {
         // This method is invoked on the EDT thread
         JFrame frame = new JFrame("Swing and JavaFX");
@@ -58,10 +62,10 @@ public class MoviePlayer {
 
     private static Scene createScene() {
         Group  root  =  new  Group();
-/*        
+/*
   		Scene  scene  =  new  Scene(root, Color.ALICEBLUE);
         Text  text  =  new  Text();
-        
+
         text.setX(40);
         text.setY(100);
         text.setFont(new Font(25));
@@ -76,7 +80,7 @@ public class MoviePlayer {
 		final VBox vbox = new VBox();
 		final Slider slider = new Slider();
 		vbox.getChildren().add(slider);
-		
+
 		root.getChildren().add(view);
 		root.getChildren().add(vbox);
 		Scene scene = new Scene(root, 1295, 545, Color.BLACK);
@@ -86,7 +90,8 @@ public class MoviePlayer {
 		//player.play();
 		//playMovie(player);
 	    player.setOnPlaying(new Runnable() {
-	            public void run() {
+	            @Override
+              public void run() {
 	                if (stopRequested) {
 	                    player.pause();
 	                    stopRequested = false;
@@ -98,15 +103,16 @@ public class MoviePlayer {
 	            }
 	        });
 
-	    
+
         player.setOnPaused(new Runnable() {
+            @Override
             public void run() {
                 System.out.println("onPaused");
                 //playButton.setText(">");
             }
         });
 
-		
+
 		player.setOnReady(new Runnable() {
 			@Override
 			public void run() {
@@ -114,11 +120,11 @@ public class MoviePlayer {
 
 				int w = player.getMedia().getWidth();
                 int h = player.getMedia().getHeight();
- 
+
 				vbox.setMinSize(w, 100);
 				//vbox.alignmentProperty(CENTER);
                 //vbox.setTranslateY(h - 100);
- 
+
 				slider.setMin(0.0);
 				slider.setValue(0.0);
 				slider.setMax(player.getTotalDuration().toSeconds());
@@ -127,9 +133,9 @@ public class MoviePlayer {
 				slider.setMajorTickUnit(10);
 				slider.setMinorTickCount(5);
 				slider.setBlockIncrement(10);
-			}			
+			}
 		});
-		
+
 		player.currentTimeProperty().addListener(new ChangeListener<Duration>() {
 			@Override
 			public void changed(ObservableValue<? extends Duration> observableValue, Duration duration, Duration current) {
@@ -142,28 +148,28 @@ public class MoviePlayer {
 			}
 		});
 
-		slider.setOnMouseClicked(new EventHandler<MouseEvent>() {        	 
+		slider.setOnMouseClicked(new EventHandler<MouseEvent>() {
             @Override
-            public void handle(MouseEvent mouseEvent) { 
+            public void handle(MouseEvent mouseEvent) {
                 player.seek(Duration.seconds(slider.getValue()));
             }
         });
- 
+
         return (scene);
     }
-    
+
     public static void playMovie(MediaPlayer mp) {
     	mp.play();
     }
-    
+
     public static void pauseMovie(MediaPlayer mp) {
     	mp.pause();
     }
-    
+
     public static MediaPlayer getMediaPlayer() {
     	return globalPlayer;
     }
-/*    
+/*
     public static void main(String[] args) {
         SwingUtilities.invokeLater(new Runnable() {
             @Override
