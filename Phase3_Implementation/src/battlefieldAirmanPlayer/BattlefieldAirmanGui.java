@@ -137,7 +137,7 @@ public class BattlefieldAirmanGui extends JFrame implements DataPointObserver {
 		contentPane.add(spTopBottom, BorderLayout.CENTER);
 
 		// initialize SoundPlayer
-		file = new File("0"+1+".wav");   // This is the file we'll be playing
+		file = new File("00.wav");   // This is the file we'll be playing
 		try {
 			player = new SoundPlayer(file, false);
 		} catch (IOException e1) {
