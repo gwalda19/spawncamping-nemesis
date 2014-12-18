@@ -137,7 +137,7 @@ public class BattlefieldAirmanGui extends JFrame implements DataPointObserver {
 		contentPane.add(spTopBottom, BorderLayout.CENTER);
 
 		// initialize SoundPlayer
-		file = new File("00.wav");   // This is the file we'll be playing
+		file = new File("BattlefieldAudio/00.wav");   // This is the file we'll be playing
 		try {
 			player = new SoundPlayer(file, false);
 		} catch (IOException e1) {
@@ -271,7 +271,7 @@ public class BattlefieldAirmanGui extends JFrame implements DataPointObserver {
       public void actionPerformed(ActionEvent arg0) {
 				selectedAudioIndex =  cmbAudio.getSelectedIndex();
 				player.stop();
-				file = new File("0"+selectedAudioIndex+".wav");   // This is the file we'll be playing
+				file = new File("BattlefieldAudio/0"+selectedAudioIndex+".wav");   // This is the file we'll be playing
 				try {
 					player = new SoundPlayer(file, false);
 				} catch (IOException e) {
