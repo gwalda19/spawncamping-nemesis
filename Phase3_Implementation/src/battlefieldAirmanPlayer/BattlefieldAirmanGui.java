@@ -8,6 +8,10 @@ import java.awt.event.ActionListener;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Date;
+import java.util.concurrent.Executors;
+import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.TimeUnit;
 
 import javafx.application.Platform;
 import javafx.embed.swing.JFXPanel;
@@ -88,7 +92,7 @@ public class BattlefieldAirmanGui extends JFrame implements DataPointObserver {
 					masterList = ReadCSV.read();
 			    reviewer_database = new ReviewerDatabase("BA_Username_List.csv");
 
-			    /*
+
 			    final ScheduledExecutorService service = Executors.newSingleThreadScheduledExecutor();
 			    service.scheduleWithFixedDelay(new Runnable()
 			    {
@@ -98,12 +102,11 @@ public class BattlefieldAirmanGui extends JFrame implements DataPointObserver {
 			        System.out.println(new Date());
 			        checkForTimeout();
 			      }
-			    }, 0, 10, TimeUnit.SECONDS);
+			    }, 0, 30, TimeUnit.MINUTES);
 
 			    pass_dialog_box = new PassWordDialog(frame, true, reviewer_database);
 			    pass_dialog_box.setVisible(true);
-			    */
-			    reviewer_database.setLoggedInUser("gwalthney");  //TODO: comment out when the block above is in.
+
 			    reviewer_logged_in = reviewer_database.getReviewerInformation();
 
 					frame = new BattlefieldAirmanGui(masterList);
