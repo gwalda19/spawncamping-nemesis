@@ -24,7 +24,8 @@ import javax.swing.JFrame;
 //public class MoviePlayer extends Application {
 public class MoviePlayer {
 	private static boolean stopRequested = false;
-  private final static File file = new File("BattlefieldVideo/Sintel.mp4");
+  private final static File file = new File("BattlefieldVideo/Medal_of_Honor_Xbox_360_Gameplay_footage.mp4");
+  //private final static File file = new File("BattlefieldVideo/Sintel.mp4");
   private final static String MEDIA_URL = file.toURI().toString();
 	static Media media = new Media(MEDIA_URL);
 	static final MediaPlayer player = new MediaPlayer(media);
@@ -169,14 +170,4 @@ public class MoviePlayer {
     public static MediaPlayer getMediaPlayer() {
     	return globalPlayer;
     }
-/*
-    public static void main(String[] args) {
-        SwingUtilities.invokeLater(new Runnable() {
-            @Override
-            public void run() {
-                initAndShowGUI();
-            }
-        });
-    }
-*/
 }
